@@ -12,70 +12,81 @@
 
 \section{State of the Art}
 
-The rapid advancement of Large Language Models (LLMs) and their 
-applications in legal contexts has opened new avenues for making 
-legal systems more accessible, particularly for non-expert users. 
-In recent years, LLMs have demonstrated their utility in processing 
-legal documents, generating advice, and improving legal 
-decision-making processes, but challenges remain regarding their 
-integration and effectiveness in highly specialized domains such as 
-law.
-Wu et al. (2023) introduced the Diagnostic Legal Large Language Model (D3LM), 
-which addresses one of the key issues faced by non-legal experts: 
-the difficulty of formulating accurate legal queries. D3LM employs 
-adaptive, lawyer-like diagnostic questions to guide users, ensuring 
-that relevant legal factors are captured and considered when interacting with the LLM. 
-This model uses a novel Positive-Unlabeled Reinforcement Learning (PURL) approach to 
-generate targeted questions, thus improving the feedback quality and user experience. 
-By incorporating a Court Views Generation (CVG) dataset, 
-D3LM outperforms traditional LLMs in the legal domain by focusing on user interaction 
-and precision, making it a crucial advancement in bridging the gap between legal 
-professionals and laypeople.
+\section{State of the Art}
 
-On the other hand, the NOMOS model developed by Pennisi et al. (2023) 
-emphasizes the identification of legal obligations within statutes. 
-The complexity of legal language often makes it difficult to discern the 
-obligations hidden within long, dense legal documents. 
-NOMOS uses a hybrid approach combining Positional Embeddings (PE) and 
-Temporal Convolutional Networks (TCNs), allowing for more effective 
-mining of obligations from legal texts. This method shows how deep 
-learning techniques can be utilized to process and extract actionable 
-insights from extensive legal documents, further improving the 
-accessibility of legal information.
+The rapid advancement of Large Language Models (LLMs) and their applications 
+in legal contexts has opened new avenues for making legal systems more accessible, 
+particularly for non-expert users. LLMs have demonstrated significant utility in processing 
+legal documents, generating advice, and improving legal decision-making processes, 
+yet challenges remain, particularly in highly specialized domains such as law. 
+Recent works have shown that, while LLMs can assist laypeople with legal tasks, 
+they also struggle with issues such as hallucination and the proper sourcing of 
+high-quality legal data, as noted by Dahan et al. \cite{dahan2023lawyers}.
 
-Legal chatbots, as highlighted by Chakrabortyi (2023), 
-have emerged as powerful tools in democratizing access to legal services.
-These AI-driven chatbots provide general legal advice, assist in drafting 
-legal documents, and even help with dispute resolution. By offering 
-cost-effective, on-demand legal guidance, chatbots like DoNotPay and 
-LegalZoom reduce barriers to legal services for people who may lack 
-the resources to hire traditional legal professionals. However, 
-while these tools are useful for routine queries, they remain 
-supplementary and cannot fully replace the nuanced expertise of human 
-lawyers. This demonstrates both the potential and the current 
-limitations of AI in delivering justice.
+Legal chatbots, as highlighted by Chakrabortyi \cite{chakraborty2023revolutionizing}, 
+have become powerful tools in democratizing access to legal services by offering 
+cost-effective, on-demand guidance. These AI-driven systems, including well-known 
+platforms such as DoNotPay and LegalZoom, help users draft documents and resolve 
+disputes, although they cannot fully replace the nuanced expertise of human lawyers. 
+Alongside these, works like Wu et al.'s 
+Diagnostic Legal Large Language Model (D3LM) \cite{wu2024knowledgeinfusedlegalwisdomnavigating} 
+focus on improving LLM interactions with non-expert users by employing lawyer-like diagnostic 
+questions to better guide legal queries. This model's use of Positive-Unlabeled Reinforcement 
+Learning (PURL) significantly enhances the user experience by generating more relevant, 
+targeted questions, ensuring that pertinent legal factors are considered during interactions with the LLM.
 
-Lastly, Mavi et al. (2023) explore the challenges LLMs face when dealing 
-with specialized legal tasks that require extensive background knowledge. 
-Their work focuses on the Retrieval-Augmented Chain-of-Thought (CoT) 
-model, which leverages the semi-structured nature of legal data to 
-retrieve relevant context efficiently. The retrieval system is designed 
-to work within the token limitations of current LLMs while ensuring 
-that important contextual information is incorporated into the model’s 
-reasoning process. This approach enhances the performance of LLMs in 
-legal question-answering tasks, showcasing how retrieval-augmented 
-methods can significantly improve accuracy and comprehension in 
-specialized domains like law.
+In another vein, the NOMOS model by Pennisi et al. \cite{pennisi-etal-2023-nomos} 
+focuses on the identification of legal obligations within statutes, addressing the 
+complexity of legal language and enabling a more efficient extraction of actionable 
+insights from dense legal texts. By combining Positional Embeddings (PE) with 
+Temporal Convolutional Networks (TCNs), NOMOS demonstrates how deep learning can 
+streamline the process of mining obligations from legal documents, 
+making legal information more accessible.
 
-Together, these studies illustrate the evolving role of AI and LLMs in 
-legal systems, highlighting innovations in user interaction, obligation 
-extraction, legal chatbots, and context retrieval. Each development 
-contributes to a broader vision of how AI can make complex legal processes 
-more understandable and accessible, particularly for the general public 
-in legal environments like Colombia's, where navigating the legal system 
-can be daunting for non-experts. By combining advancements in machine 
-learning, natural language processing, and user-centered design, LLMs and 
-related AI models are pushing the boundaries of how legal information is 
-processed and delivered to diverse audiences.
+Meanwhile, Jonathan Li et al. \cite{li2024experimentinglegalaisolutions} introduce a 
+human-centric approach to legal question-answering systems in their work, which 
+develops the LegalQA dataset. This dataset comprises real, expert-curated legal 
+questions and answers spanning diverse legal areas. Their research emphasizes the 
+use of structured data and retrieval-augmented generation to boost LLM performance, 
+particularly in producing factually correct and comprehensible answers for laypeople. 
+This framework is an important step towards addressing some of the gaps found in general-purpose LLMs, 
+particularly by ensuring that the legal information delivered is both accurate and relevant to users' needs.
 
+Mavi et al. \cite{mavi2023retrievalaugmentedchainofthoughtsemistructureddomains} 
+explore the Retrieval-Augmented Chain-of-Thought (CoT) model, 
+which tackles specialized legal tasks by efficiently retrieving 
+context from semi-structured data. Their model enhances the reasoning abilities of LLMs, 
+especially in legal question-answering scenarios, by incorporating important contextual 
+information within token limitations.
+
+In contrast to more complex methods like D3LM, Retrieval-Augmented Generation (RAG) 
+approaches offer a compelling advantage by requiring less data and providing more 
+straightforward processing pipelines. While D3LM utilizes diagnostic questions and 
+relies on Positive-Unlabeled Reinforcement Learning (PURL) to guide legal interactions, 
+its process is notably intricate, involving knowledge graphs that are highly specific to 
+particular legal domains. This presents a limitation when the field of expertise changes, 
+as the knowledge graph would need to be adjusted or rebuilt for different legal areas. 
+RAG, on the other hand, bypasses this complexity by focusing on retrieving minimal, 
+highly relevant text segments from large legal corpora, as demonstrated by 
+LegalBench-RAG \cite{pipitone2024legalbenchragbenchmarkretrievalaugmentedgeneration}. 
+By emphasizing precise retrieval and enabling LLMs to generate accurate citations, 
+RAG methods allow for efficient, domain-agnostic solutions that maintain accuracy 
+without the overhead of domain-specific modeling.
+
+Moreover, while the Chain-of-Thought (CoT) approach, as proposed by Mavi et al. 
+\cite{mavi2023retrievalaugmentedchainofthoughtsemistructureddomains}, offers valuable 
+step-by-step reasoning that improves the decision-making process in complex legal tasks, 
+it comes with its own challenges. CoT relies heavily on structured reasoning, 
+which is well-suited for certain specialized legal tasks but can increase the complexity 
+of model outputs. This added complexity, especially when dealing with semi-structured data, 
+can sometimes hinder scalability and efficiency when compared to the more straightforward 
+retrieval and generation process of RAG. Thus, while CoT has clear benefits in 
+enhancing accuracy for complex legal queries, RAG’s simplicity and adaptability 
+make it particularly advantageous for real-world applications where legal fields 
+and contexts are constantly shifting.
+
+This combination of streamlined retrieval and adaptability makes RAG methods particularly 
+suited to dynamic legal environments, such as Colombia's, where legal systems can be 
+difficult for non-experts to navigate.
 \endinput
+
