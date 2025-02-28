@@ -8,9 +8,7 @@
 % \subsection{Second level section}
 
 % %%%%%%
-% \subsubsection{Third level section}
-
-\section{State of the Art}
+% \subsubsection{Third level section} 
 
 \section{State of the Art}
 
@@ -85,8 +83,26 @@ enhancing accuracy for complex legal queries, RAG’s simplicity and adaptabilit
 make it particularly advantageous for real-world applications where legal fields 
 and contexts are constantly shifting.
 
+One of the most prominent problems when it comes to LLMs, especially in the legal domain, is the 
+presence of hallucinations. For instance, when replying to a legal question, the model may come up
+with non-existent laws or contradictory recomendations. It is of very high importance then, to avoid 
+this kind of issues. In \cite{hu2025finetuninglargelanguagemodels} the authors create a benchmark
+to evaluate model's hallucinations, using the groundtruth law set as a 
+
 This combination of streamlined retrieval and adaptability makes RAG methods particularly 
 suited to dynamic legal environments, such as Colombia's, where legal systems can be 
 difficult for non-experts to navigate.
+
+One of the recent developments in domain-specific LLMs for regulatory and financial text interpretation is our work \cite{martinez-etal-2025-scalable}, 
+where we present a comprehensive approach to developing LLMs tailored specifically for understanding regulatory texts. 
+Our methodology involves constructing a specialized corpus through large-scale scraping of financial and regulatory 
+documents across domains like compliance, licensing, and financial reporting. 
+By preprocessing this data with GPT-4o-mini and further pre-training a LLaMA-3.1-8B model on the curated corpus, 
+we demonstrate improved capability in tasks such as acronym expansion and regulatory question-answering. 
+Our implementation of Quantized Low-Rank Adaptation (QLoRA) addresses computational efficiency concerns while maintaining model performance. 
+Although our model shows only slight improvements over baseline in some tasks, particularly in named entity recognition, 
+this approach illustrates the potential of domain-specific LLMs in regulatory text interpretation and establishes a foundation for specialized NLP evaluation methodologies. 
+This scalable framework offers a balanced alternative between computational requirements and performance, allowing potential deployment on more accessible hardware compared to larger models, 
+making it particularly relevant for contexts where computational resources may be limited.
 \endinput
 
