@@ -1,0 +1,302 @@
+\chapter{Related Work}
+\label{cha:sota}
+
+%%
+% \section{Top level section}
+
+% %%%%
+% \subsection{Second level section}
+
+% %%%%%%
+% \subsubsection{Third level section} 
+\section{Referential Framework}
+\subsection{Large Language Models}
+Large Language Models (LLMs) represent a significant advancement 
+in natural language processing, characterized by their ability to 
+understand, generate, and interact with human language at unprecedented 
+scales. Modern LLMs such as GPT-4~\cite{openai2023}, LLaMA~\cite{grattafiori2024llama3herdmodels}, 
+and Claude~\cite{anthropic2023} are trained on vast corpora of text data, 
+enabling them to perform a wide range of language tasks without task-specific training. 
+These models have demonstrated remarkable capabilities in text generation, summarization, translation, 
+and even complex reasoning tasks~\cite{brown2020}.
+\subsection{Transformer Architecture}
+The transformer architecture, introduced by Vaswani et 
+al.~\cite{vaswani2023attentionneed}, forms the foundation of modern 
+LLMs. Unlike recurrent neural networks, transformers process entire 
+sequences simultaneously through self-attention mechanisms, allowing for 
+more efficient training and better modeling of long-range dependencies in 
+text. The architecture consists of an encoder and decoder, each composed 
+of multi-head attention layers and feed-forward neural networks, enabling 
+parallel processing and effective representation learning.
+\subsection{Generative and Discriminative LLMs}
+LLMs can be categorized as either generative or discriminative based on
+their primary function. Generative LLMs, such as GPT models, focus on 
+producing text by predicting the next token in a sequence given previous 
+tokens. These models excel at creative writing, content generation, and
+open-ended dialogue. Discriminative LLMs, in contrast, classify or 
+categorize text into predefined classes or extract specific information 
+from text, making them suitable for sentiment analysis, entity recognition,
+and other classification tasks.
+\subsection{Encoder-only, Decoder-only, and Encoder-Decoder LLMs}
+The architectural design of LLMs can be categorized into three primary 
+types: encoder-only, decoder-only, and encoder-decoder models.
+Encoder-only models, such as BERT~\cite{devlin2019}, excel at understanding
+and representing input text for classification and information extraction 
+tasks. Decoder-only models, including GPT~\cite{brown2020} and 
+LLaMA~\cite{grattafiori2024llama3herdmodels}, specialize in text 
+generation. Encoder-decoder models, like T5~\cite{ni2021sentencet5scalablesentenceencoders} and 
+BART~\cite{lewis2019bartdenoisingsequencetosequencepretraining}, combine 
+both components to process input text and generate output sequences, 
+making them versatile for translation, summarization, and question-answering tasks.
+\subsection{Pre-training and Fine-tuning Paradigm}
+Modern LLMs typically follow a two-stage development process: pre-training 
+and fine-tuning. During pre-training, models learn general language 
+understanding from vast unlabeled text corpora using self-supervised 
+objectives such as masked language modeling or next-token prediction. 
+This phase creates a foundation model with broad language capabilities. 
+Fine-tuning then adapts these pre-trained models to specific downstream 
+tasks using smaller, task-specific datasets. This paradigm allows for 
+transfer learning, where knowledge gained from pre-training can be 
+leveraged for various applications with minimal task-specific 
+data~\cite{howard2018}.
+\subsection{Supervised Fine-Tuning (SFT) and Reinforcement Learning from Human Feedback (RLHF)}
+Supervised Fine-Tuning (SFT) involves training pre-trained models on 
+labeled datasets for specific tasks. This approach uses traditional 
+supervised learning methods where the model learns from input-output pairs. 
+Reinforcement Learning from Human Feedback (RLHF), introduced by Christiano 
+et al.\cite{christiano2017} and popularized by InstructGPT\cite{ouyang2022}, 
+extends beyond SFT by incorporating human preferences into the training 
+process. RLHF typically involves training a reward model based on human 
+comparisons of model outputs, then using reinforcement learning to optimize 
+the model's behavior according to this reward function. This approach has 
+proven effective in aligning LLMs with human values and preferences, 
+reducing harmful outputs, and improving helpfulness.
+\subsection{Efficient Fine-tuning with LoRA and QLoRA}
+As LLMs grow in size, full fine-tuning becomes computationally prohibitive. 
+Low-Rank Adaptation (LoRA), introduced by Hu et al.\cite{hu2021}, offers 
+an efficient alternative by freezing the pre-trained model weights and 
+injecting trainable low-rank decomposition matrices into each layer of 
+the transformer architecture. This approach significantly reduces the 
+number of trainable parameters while maintaining performance. Quantized 
+Low-Rank Adaptation (QLoRA), developed by Dettmers et al.\cite{dettmers2023}, 
+further improves efficiency by combining LoRA with model quantization techniques, 
+enabling fine-tuning of models with billions of parameters on consumer-grade 
+hardware without sacrificing performance.
+\subsection{Retrieval Augmented Generation - RAG}
+Retrieval Augmented Generation (RAG), proposed by Lewis et 
+al.\cite{lewis2020retrieval}, combines information retrieval with text 
+generation to enhance the factuality and reliability of LLM outputs. 
+RAG systems first retrieve relevant documents from an external knowledge 
+base using the input query, then condition the language model's generation 
+on both the input query and the retrieved documents. This approach allows 
+LLMs to access information beyond their training data, reducing 
+hallucinations and enabling them to cite sources explicitly. 
+RAG has proven particularly valuable in knowledge-intensive domains 
+such as legal analysis, where accurate reference to authoritative 
+sources is essential.
+\subsection{Hypothetical Document Embeddings - HyDE}
+Hypothetical Document Embeddings (HyDE), introduced by Gao et al.\cite{gao2022}, 
+addresses the challenge of retrieval in dense vector spaces when queries 
+differ substantially from relevant documents. HyDE uses an LLM to generate a 
+hypothetical document that might answer the query, then uses this document's embedding rather 
+than the query's embedding for retrieval. This approach bridges the semantic gap between queries 
+and documents, improving retrieval performance especially for complex or hypothetical queries. In legal 
+applications, HyDE can help identify relevant precedents or regulations that may not share obvious lexical 
+similarities with a user's query\cite{gao2022}.
+\subsection{Prompt Engineering}
+Prompt engineering encompasses techniques for formulating inputs to LLMs to 
+elicit desired outputs. Effective prompts can significantly enhance model 
+performance without changing model parameters. Key techniques include few-shot 
+learning, where examples are provided within the prompt; chain-of-thought prompting, 
+which encourages step-by-step reasoning; and system prompts that define the model's role 
+and constraints. In legal applications, prompt engineering can guide models to adhere 
+to specific frameworks, consider relevant factors, and produce outputs aligned with 
+legal standards and practices.
+\subsection{Agentic Frameworks for LLMs}
+Agentic frameworks extend LLMs beyond passive response generation to enable goal-directed, 
+multi-step reasoning and action. These frameworks typically involve decomposing complex 
+tasks into subtasks, planning execution sequences, and monitoring progress toward goals. 
+Approaches like ReAct integrate reasoning and action, while frameworks such
+as AutoGPT and LangChain provide structures for autonomous task completion. 
+In legal contexts, agentic frameworks can orchestrate the process of case analysis, 
+from information gathering to strategy formulation and explanation.
+\subsection{Evaluation Metrics for LLMs}
+Evaluating LLM performance requires multiple complementary metrics. General metrics 
+include perplexity, which measures how well a model predicts a sample, 
+and BLEU score for comparing generated text to reference texts. 
+BERTScore~\cite{zhang2020bertscoreevaluatingtextgeneration}, which uses contextual 
+embeddings to measure semantic similarity between generations and references, 
+offers a more nuanced evaluation of text quality. For legal applications, 
+domain-specific metrics might include assessments of legal accuracy, 
+procedural correctness, and citation validity. Human evaluation remains crucial, 
+particularly for assessing qualities like helpfulness, clarity, and appropriateness 
+of legal guidance.
+\subsection{Hallucinations and Bias}
+LLMs are prone to hallucinations—generating content that is factually incorrect 
+or unfounded—and may perpetuate or amplify biases present in their training data. 
+Hallucinations pose particular challenges in legal contexts, where accuracy is 
+paramount. Techniques to mitigate hallucinations include retrieval augmentation, 
+which grounds generations in external knowledge sources, and uncertainty 
+quantification, which helps identify when a model might be generating unreliable 
+content. Addressing bias requires careful dataset curation, targeted fine-tuning, 
+and ongoing monitoring of model outputs. In legal applications, these considerations 
+are critical for ensuring that AI-generated guidance does not propagate systemic 
+inequities or provide misleading information.
+
+\section{State of the Art}
+\subsection{Datasets}
+Many of the datasets regarding legal text are limited to the English and
+Chinese speaking world. This limitation extends to other jurisdictions as well, 
+creating challenges for developing legal AI systems in countries like Colombia 
+where access to structured legal datasets is either restricted or non-existent.
+\subsection{Approaches}
+The rapid advancement of Large Language Models (LLMs) and their applications 
+in legal contexts has opened new avenues for making legal systems more 
+accessible, particularly for non-expert users. LLMs have demonstrated 
+significant utility in processing legal documents, generating advice, 
+and improving legal decision-making processes, yet challenges remain, 
+particularly in highly specialized domains such as law. Recent works have 
+shown that, while LLMs can assist laypeople with legal tasks, they also 
+struggle with issues such as hallucination and the proper sourcing of 
+high-quality legal data, as noted by Dahan et al.~\cite{dahan2023lawyers}.
+Legal chatbots, as highlighted by Chakrabortyi~\cite{chakraborty2023revolutionizing}, 
+have become powerful tools in democratizing access to legal services by 
+offering cost-effective, on-demand guidance. These AI-driven systems, 
+including well-known platforms such as DoNotPay and LegalZoom, 
+help users draft documents and resolve disputes, although they cannot 
+fully replace the nuanced expertise of human lawyers. Alongside these, 
+works like Wu et al.'s Diagnostic Legal Large Language Model 
+(D3LM)~\cite{wu2024knowledgeinfusedlegalwisdomnavigating} focus on improving LLM 
+interactions with non-expert users by employing lawyer-like diagnostic 
+questions to better guide legal queries. This model's use of 
+Positive-Unlabeled Reinforcement Learning (PURL) significantly 
+enhances the user experience by generating more relevant, targeted questions, 
+ensuring that pertinent legal factors are considered during interactions 
+with the LLM.
+\subsection{Retrieval-Augmented Approaches}
+In contrast to more complex methods like D3LM, Retrieval-Augmented Generation 
+(RAG) approaches offer a compelling advantage by requiring less data and 
+providing more straightforward processing pipelines. While D3LM utilizes 
+diagnostic questions and relies on Positive-Unlabeled Reinforcement Learning 
+(PURL) to guide legal interactions, its process is notably intricate, 
+involving knowledge graphs that are highly specific to particular 
+legal domains. This presents a limitation when the field of expertise changes, 
+as the knowledge graph would need to be adjusted or rebuilt for different legal 
+areas.
+RAG, on the other hand, bypasses this complexity by focusing on retrieving 
+minimal, highly relevant text segments from large legal corpora, as 
+demonstrated by LegalBench-RAG \cite{pipitone2024legalbenchragbenchmarkretrievalaugmentedgeneration}. 
+By emphasizing precise retrieval and enabling LLMs to generate accurate 
+citations, RAG methods allow for efficient, domain-agnostic solutions that 
+maintain accuracy without the overhead of domain-specific modeling. Recent 
+research by Manathunga et al. \cite{manathunga2023retrievalaugmentedgenerationrepresentative} has 
+further demonstrated RAG's potential in enhancing legal text summarization by dynamically 
+fetching relevant documents before generating responses. Similarly, 
+Lee et al. \cite{ryu-etal-2023-retrieval} explored RAG's application in case 
+law retrieval, showing its superiority over traditional keyword-based search 
+engines.
+The integration of FAISS (Facebook AI Similarity Search) with RAG models has 
+significantly improved document retrieval efficiency in legal applications. 
+\cite{panchal2025lawpalretrievalaugmented} the authors demonstrated that FAISS-based vector 
+search mechanisms outperform conventional database searches in legal 
+information retrieval, reducing query response time while maintaining high accuracy. 
+In a comparative study, \cite{zeng2023scalableeffectivegenerativeinformation}, FAISS-based 
+retrieval mechanisms significantly outperformed traditional Boolean keyword searches, 
+reducing irrelevant document retrieval by 40\%.
+\subsection{Transformer-Based Models and Deep Learning}
+In another vein, the NOMOS model by Pennisi et al. 
+\cite{pennisi-etal-2023-nomos} focuses on the identification of legal 
+obligations within statutes, addressing the complexity of legal language and 
+enabling a more efficient extraction of actionable insights from dense legal 
+texts. By combining Positional Embeddings (PE) with Temporal Convolutional 
+Networks (TCNs), NOMOS demonstrates how deep learning can streamline the 
+process of mining obligations from legal documents, making legal information 
+more accessible.
+Transformer-based models such as BERT and GPT have contributed significantly 
+to AI-driven legal research. RoBERTa, an optimized version of BERT developed 
+by \cite{Lliu2019robertarobustlyoptimizedbert}, has enhanced contextual understanding 
+and document similarity matching in legal queries. These models have been 
+integrated into legal chatbots for contract analysis and legal decision-making, 
+improving legal text comprehension and summarization.
+\subsection{Specialized Legal Question-Answering Systems}
+Meanwhile, Jonathan Li et al. \cite{li2024experimentinglegalaisolutions} 
+introduce a human-centric approach to legal question-answering systems in 
+their work, which develops the LegalQA dataset. This dataset comprises real, 
+expert-curated legal questions and answers spanning diverse legal areas. 
+Their research emphasizes the use of structured data and retrieval-augmented 
+generation to boost LLM performance, particularly in producing factually 
+correct and comprehensible answers for laypeople. This framework is an 
+important step towards addressing some of the gaps found in general-purpose LLMs, 
+particularly by ensuring that the legal information delivered is both accurate and 
+relevant to users' needs.
+\subsection{Chain-of-Thought and Reasoning Approaches}
+Mavi et al. \cite{mavi2023retrievalaugmentedchainofthoughtsemistructureddomains} 
+explore the Retrieval-Augmented Chain-of-Thought (CoT) model, which tackles specialized 
+legal tasks by efficiently retrieving context from semi-structured data. Their model 
+enhances the reasoning abilities of LLMs, especially in legal question-answering 
+scenarios, by incorporating important contextual information within token limitations.
+While the Chain-of-Thought (CoT) approach offers valuable step-by-step reasoning that 
+improves the decision-making process in complex legal tasks, it comes with its own challenges. 
+CoT relies heavily on structured reasoning, which is well-suited for certain specialized legal tasks 
+but can increase the complexity of model outputs. This added complexity, especially when dealing with 
+semi-structured data, can sometimes hinder scalability and efficiency when compared to the more straightforward 
+retrieval and generation process of RAG. Thus, while CoT has clear benefits in enhancing accuracy for complex 
+legal queries, RAG's simplicity and adaptability make it particularly advantageous for real-world applications 
+where legal fields and contexts are constantly shifting.
+\subsection{Addressing Hallucinations and Evaluation}
+One of the most prominent problems when it comes to LLMs, especially in the legal domain, 
+is the presence of hallucinations. For instance, when replying to a legal question, 
+the model may come up with non-existent laws or contradictory recommendations. 
+It is of very high importance then, to avoid this kind of issues. 
+In \cite{hu2025finetuninglargelanguagemodels} the authors create a benchmark 
+to evaluate model's hallucinations, using the groundtruth law set as a reference.
+\cite{Papineni_bleu} and \cite{lin-2004-rouge} introduced automated metrics 
+such as BLEU and ROUGE scores which can be used to evaluate AI-generated 
+legal text summaries, ensuring their quality and relevance.
+\subsection{Access to Justice and Ethical Considerations}
+The practical applications of legal AI chatbots have been studied extensively 
+in the context of access to justice and AI ethics. 
+[citation!!!!] highlights the potential of AI-driven legal assistants in bridging 
+the justice gap, particularly in countries where legal resources are not easily 
+accessible. This is particularly relevant for systems like Colombia's, 
+where legal access disparities can be significant. 
+Research by \cite{Min_bias} explored methods for bias detection and mitigation 
+in legal AI, ensuring fairness in AI-generated legal advice.
+\subsection{Challenges and Future Directions}
+Despite these advancements, challenges remain in AI-driven legal research. 
+Existing chatbots still struggle with multi-jurisdictional legal queries. 
+Additionally, legal AI models often lack the ability to process long-context 
+legal arguments effectively, a limitation that has prompted proposals for 
+memory-based retrieval techniques to improve long-form legal text processing.
+This combination of streamlined retrieval and adaptability makes RAG methods 
+particularly suited to dynamic legal environments, such as Colombia's. where 
+legal systems can be difficult for non-experts to navigate. 
+\cite{Singh_legal} demonstrated that AI-powered legal research tools using 
+NLP provide faster and more contextually accurate responses compared to standard legal 
+databases, further supporting the potential for RAG-based systems in making 
+complex legal systems more accessible.
+% \subsection{Domain-Specific LLMs for Legal and Regulatory Text}
+% In \cite{martinez-etal-2025-scalable}, where we present a comprehensive approach to 
+% developing LLMs tailored specifically for understanding regulatory texts. 
+% Our methodology involves constructing a specialized corpus through 
+% large-scale scraping of financial and regulatory documents across domains 
+% like compliance, licensing, and financial reporting. By preprocessing this 
+% data with GPT-4o-mini and further pre-training a LLaMA-3.1-8B model on the 
+% curated corpus, we demonstrate improved capability in tasks such as acronym 
+% expansion and regulatory question-answering. Our implementation of 
+% Quantized Low-Rank Adaptation (QLoRA) addresses computational 
+% efficiency concerns while maintaining model performance. 
+% Although our model shows only slight improvements over baseline in some tasks, 
+% particularly in named entity recognition, this approach illustrates the 
+% potential of domain-specific LLMs in regulatory text interpretation and 
+% establishes a foundation for specialized NLP evaluation methodologies. 
+% This scalable framework offers a balanced alternative between computational 
+% requirements and performance, allowing potential deployment on more accessible 
+% hardware compared to larger models, making it particularly relevant for contexts 
+% where computational resources may be limited, such as Colombia's legal system.
+% Future developments in multilingual legal AI, enhanced retrieval mechanisms, and 
+% AI-powered contract analysis will be crucial in making legal AI tools more accessible, 
+% reliable, and widely applicable in legal practice, particularly in diverse jurisdictions 
+% like Colombia where multiple language variations and regional legal nuances may exist.
+\endinput
+

@@ -1,0 +1,257 @@
+\chapter{Agentic Pipeline Developoment}
+\subsection{Problem Understanding}
+Legal consultation for gender-based cases involves a complex interplay of factual assessment, 
+legal analysis, and interpersonal support. To understand the challenges our agentic pipeline 
+aims to address, it is essential to examine the current process of legal consultation in the 
+Colombian context, particularly within institutions like the Consultorio Jurídico de la Universidad de los Andes.
+
+When conducting initial consultations, legal experts engage in a structured yet flexible 
+information-gathering process. This typically begins with open-ended questions about the 
+client's situation, followed by increasingly specific inquiries to establish relevant facts, 
+timelines, and supporting documentation. Throughout this process, legal practitioners must 
+balance multiple objectives: identifying legally relevant details, establishing case chronology, 
+determining applicable legal frameworks, assessing procedural options, and evaluating evidentiary 
+strengths and weaknesses.
+
+In the specific context of gender-based cases, this process becomes particularly nuanced. 
+Legal experts must navigate sensitive topics such as domestic violence, sexual harassment, 
+discrimination, and family conflicts while maintaining professional boundaries and creating 
+a safe environment for disclosure. The consultation process often requires practitioners to 
+recognize both explicit and implicit elements of gender-based issues, including power dynamics, 
+economic dependencies, and potential safety concerns that may not be immediately articulated by clients.
+
+At the Consultorio Jurídico de la Universidad de los Andes, consultations serve a dual purpose. 
+Beyond providing legal guidance, practitioners offer crucial emotional support to clients navigating 
+traumatic or stressful situations. This holistic approach recognizes that legal challenges do 
+not exist in isolation from psychological and social contexts. Practitioners are trained to 
+acknowledge emotional aspects of cases while guiding clients toward practical legal 
+solutions—a balance that any automated system must similarly attempt to achieve.
+
+The Consultorio Jurídico operates as a social service initiative, providing free legal assistance 
+to populations that cannot afford private legal representation. This service, typically costly 
+in the commercial sector, forms part of the university's commitment to social responsibility 
+and access to justice. Law students, supervised by experienced attorneys, gain practical 
+experience while serving vulnerable communities, creating a mutual benefit model that contributes 
+to both legal education and social equity.
+
+A significant challenge in developing technological support for this process is data access. 
+The Consultorio Jurídico maintains detailed records of consultations, including case notes, 
+legal analyses, and outcomes. However, these records contain sensitive personal information 
+and are not anonymized, making them unsuitable for sharing with third-party researchers or 
+technology developers. Client confidentiality and ethical considerations rightfully prevent 
+direct use of these authentic case records for AI development purposes.
+
+This data limitation creates a methodological challenge for our research. Without access to 
+real consultation transcripts or case files, we must develop alternative approaches to creating 
+representative datasets for training and evaluating our agentic pipeline. This necessitates 
+collaboration with legal experts to generate synthetic cases that accurately reflect the patterns, 
+complexities, and legal issues commonly encountered in gender-based consultations, while ensuring 
+no actual client information is compromised.
+Additionally, the consultation process varies significantly based on the specific legal issues 
+involved. A domestic violence consultation may focus heavily on immediate protective 
+measures and evidence documentation, while a workplace discrimination case might center on 
+establishing patterns of differential treatment and identifying appropriate administrative and 
+judicial remedies. This diversity of case types requires any automated system to be flexible enough 
+to adapt its information-gathering approach based on the emerging understanding of the case category.
+The temporal dimension of legal consultations also presents challenges for automation. 
+
+Initial consultations often reveal only partial information, with critical details emerging over 
+subsequent interactions as trust is established and clients recall or discover relevant information. 
+This iterative process must be accommodated in any agentic system, allowing for recursive 
+information gathering and strategy refinement as case understanding evolves.
+Finally, the legal consultation process culminates in strategy formation—identifying viable 
+legal pathways, explaining procedural requirements, outlining potential challenges, and setting 
+realistic expectations about timelines and outcomes. This strategic guidance must balance 
+technical accuracy with practical feasibility, considering not just what is legally possible 
+but what is realistically achievable given the client's resources, priorities, and circumstances.
+Understanding these multifaceted aspects of legal consultation is essential for developing an 
+effective agentic pipeline. Our system must not only extract relevant information and provide 
+accurate legal guidance but must do so in a manner that acknowledges the emotional, ethical, 
+and practical dimensions of gender-based legal challenges in the Colombian context.
+
+\section{Dataset Construction}
+\label{sec:dataset}
+
+Our dataset development followed an iterative human-AI collaboration process comprising four key phases, as illustrated in Figure~\ref{fig:data_pipeline}.
+
+\subsection{Base Case Preparation}
+\begin{itemize}
+    \item Initialized with 23 anonymized gender-based case summaries from the Consultorio Jurídico
+    \item Categorized cases into primary themes including:
+    \begin{itemize}
+        \item Violencia Basada en Género
+        \item Violencia Sexual
+        \item Violencia en el Ámbito Familiar
+        \item Violencia en el Ámbito Laboral
+        \item Interseccionalidad
+    \end{itemize}
+\end{itemize}
+
+\subsection{Synthetic Case Generation}
+\begin{enumerate}
+    \item For each base case, prompted GPT-4o with:
+    \begin{itemize}
+        \item Case category
+        \item Example template from similar cases
+        \item Constraints on demographic details
+    \end{itemize}
+    
+    \item Generated [M] cases, randomizing case category.
+\end{enumerate}
+
+\subsection{Expert-Guided Refinement}
+\begin{itemize}
+    \item Legal practitioners ([K] law students, [L] attorneys) performed:
+    \begin{enumerate}
+        \item Case completeness verification
+        \item Development of question-answer pairs:
+        \begin{itemize}
+            \item 10-20 diagnostic questions per case
+            \item Culturally-adapted follow-up probes
+        \end{itemize}
+        
+        \item Structural edits to ensure procedural accuracy
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Conversation Simulation}
+\begin{itemize}
+    \item Generated lawyer-client dialogues through iterative prompt refinement:
+    \begin{equation}
+        C_{final} = \text{LLM}(P_2(\text{LLM}(P_1(C_{base})))
+    \end{equation}
+    where:
+    \begin{itemize}
+        \item $C_{base}$ = initial synthetic case
+        \item $P_1$ = first prompt template + initial context
+        \item $P_2$ = first prompt template + expert provided context
+    \end{itemize}
+    
+    \item Implemented feedback-driven generation cycle:
+    \begin{enumerate}
+        \item Initial generation: Created dialogues using base prompt template
+        \item Expert analysis: Added [P] critical questions, removed [Q] irrelevant ones
+        \item Final generation: Regenerated conversations using refined prompt template
+    \end{enumerate}
+\end{itemize}
+
+\subsection{Legal Strategy Development}
+\begin{itemize}
+    \item LLM-produced strategies conditioned on:
+    \begin{itemize}
+        \item Full conversation history and generated legal case
+        \item Relevant Colombian legal articles
+        \item Regional International legal articles
+    \end{itemize}
+    
+    Legal experts then validated the output data, ensuring we have good
+    examples to train our models on.
+\end{itemize}
+
+\subsection{Final Dataset Composition}
+\begin{table}[h]
+    \centering
+    \caption{Dataset Statistics}
+    \label{tab:dataset_stats}
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Component} & \textbf{Count} \\
+        \midrule
+        Base Cases & [N] \\
+        Synthetic Cases & [M] \\
+        Curated Dialogues & [P] \\
+        Legal Strategies & [Q] \\
+        Expert Annotations & [R] \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+ANALYSIS!!!
+ANALYSIS!!!
+ANALYSIS!!!
+\section{System Architecture}
+\label{sec:architecture}
+
+Our agentic pipeline employs a three-stage architecture optimized for legal case processing, as shown in Figure~\ref{fig:system_flow}. Each component operates sequentially with validation checks between stages.
+
+\subsection{Information Extraction Module}
+\begin{itemize}
+    \item \textbf{Conversational Agent}:
+    \begin{itemize}
+        \item Conducts dialogic interaction with users through natural language
+        \item Implements context-aware questioning based on:
+        \begin{itemize}
+            \item Emerging case details
+            \item Predefined legal factor templates
+            \item User response patterns
+        \end{itemize}
+    \end{itemize}
+    
+    \item \textbf{Completion Checker}:
+    \begin{itemize}
+        \item Monitors conversation stream in real-time
+        \item Evaluates information sufficiency using either the model itself, 
+        along with prompt engineering or a finetuned model, 
+        trained using the dataset developed in the previous setion:
+        \item Triggers phase transition when the model answer's "yes"
+    \end{itemize}
+\end{itemize}
+
+\subsection{Legal Case Generation}
+\begin{itemize}
+    \item Input transformation process:
+    \begin{itemize}
+        \item Filters conversational data using completeness checker output
+        \item Structures information into formal legal elements:
+        \begin{itemize}
+            \item Parties identification
+            \item Case type classification
+            \item Chronological event timeline
+            \item Evidence inventory
+            \item Client petitions
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Legal Strategy Generation}
+\begin{itemize}
+    \item \textbf{RAG Architecture}:
+    \begin{itemize}
+        \item Knowledge Base: Colombian legal corpus containing:
+        \begin{itemize}
+            \item International procedural codes
+            \item Regional procedural codes
+        \end{itemize}
+        
+        \item Retrieval Component:
+        \begin{itemize}
+            \item Dense vector search using BAAI Embeddings + HyDE
+            \item Statute relevance ranking
+        \end{itemize}
+        
+        \item Generation Component:
+        \begin{itemize}
+            \item Contextual fusion of case details + legal provisions
+            \item Strategy template instantiation
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\begin{table}[h]
+    \centering
+    \caption{Architecture Components}
+    \label{tab:components}
+    \begin{tabular}{lp{0.7\textwidth}}
+        \toprule
+        \textbf{Module} & \textbf{Function} \\
+        \midrule
+        Information Extraction & Dialogic fact gathering with completeness verification \\
+        Case Generation & Conversation-to-legal-document transformation \\
+        Strategy Generation & RAG-based legal analysis and recommendation \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The pipeline enforces strict data isolation between stages, 
+with case information only progressing upward when meeting 
+validation criteria from the previous phase.

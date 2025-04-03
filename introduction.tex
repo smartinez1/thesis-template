@@ -9,42 +9,181 @@
 
 % %%%%%%
 % \subsubsection{Third level section}
-\subsection{Context} 
-El sistema legal colombiano enfrenta tres desafíos estructurales:
+\section{Context}
+Recent advances in Large Language Models (LLMs) like GPT-4~\cite{openai2023},
+LLaMA~\cite{grattafiori2024llama3herdmodels}, and 
+Deepseek~\cite{deepseekai2025deepseekr1incentivizingreasoningcapability} have revolutionized natural
+language processing through transformer architectures~\cite{vaswani2023attentionneed}.
+Trained on trillions of tokens with up to billions of parameters~\cite{brown2020},
+these models excel at text generation, summarization, and complex reasoning tasks.
+Their application has expanded into specialized domains including law~\cite{nay2023},
+where they demonstrate potential for legal document analysis and
+contract review~\cite{chalkidis2022}.
+In Colombia, access to justice remains a significant challenge. 
+According to a 2021 study by the Ministry of Justice, the National Statistics Department (DANE),
+and the National Planning Department (DNP), 56\% of Colombians did not take any action 
+to obtain justice for situations related to crimes, poor healthcare, public services, 
+housing issues, and family conflicts~\cite{dnp2021}. 
+Of those who did seek assistance, 43.1\% approached public institutions or private attorneys,
+while 0.9\% resorted to illegal or violent means to address their problems. Overall, 
+only 19.8\% of the reported legal needs were satisfied, 
+leaving 80.2\% of cases unresolved~\cite{dnp2021}.
+The survey, conducted between August and October 2020, included 129,709 individuals from 40,368 
+households across Colombia's 13 major cities. 
+The study revealed that 83\% of all declared legal needs fell into five categories: 
+crimes (3,695,056), healthcare (714,649), public services (407,063), housing (311,130), and family matters (278,510). 
+Across all surveyed cities, the most frequently reported legal needs related to public utilities consumption, 
+consumer purchases, customer service issues, and family problems—including alimony demands, 
+inheritance disputes, and domestic violence. Cali, Pasto, and Ibagué were identified as the cities with the highest number 
+of declared legal needs associated with crimes, complaints about healthcare services, and housing issues~\cite{dnp2021}.
+The study also found that Colombians primarily seek solutions to their legal needs through institutions such as the police, 
+public utility companies, and family commissioner offices.
+\section{Problem Statement}
+Despite ongoing digitalization efforts in Colombia's legal sector,
+a substantial technological gap exists in providing accessible 
+legal guidance for gender-based cases. While 56\% of Colombians 
+take no action to address their legal needs~\cite{dnp2021}, 
+this percentage is even higher among women facing gender-based legal 
+issues due to compounding factors: limited legal literacy, financial 
+constraints, geographic barriers, and systemic gender biases within 
+the justice system.
+The complexity of legal frameworks and procedures creates significant 
+obstacles for women seeking legal remedies. Traditional approaches to 
+legal assistance—including public defenders, legal aid clinics, 
+and pro bono services—while valuable, remain insufficient to meet demand. 
+This insufficiency is particularly acute in cases involving gender-based violence, 
+family law disputes, workplace discrimination, and property rights conflicts, 
+where timely intervention is often critical.
+Current technological solutions for legal assistance in Colombia 
+primarily focus on information dissemination rather than personalized 
+case assessment. Existing platforms typically offer static legal 
+information or simple document automation but fail to provide the dialogic,
+adaptive guidance necessary for complex gender-based cases that require 
+nuanced understanding of both factual circumstances and applicable 
+laws.
+
+This research addresses this gap by developing an agentic pipeline 
+that leverages large language models to create a conversational 
+interface specifically designed for gender-based legal cases. 
+Unlike conventional legal tech solutions, our system:
+\begin{enumerate}
+\item Extracts case-specific information through structured yet natural dialogue, accommodating users with varying levels of legal knowledge;
+\item Analyzes the collected information within the framework of Colombian law to formulate viable legal strategies;
+\item Communicates these strategies in accessible language that balances legal precision with comprehensibility;
+\item Focuses specifically on gender-based legal matters, where specialized knowledge of both substantive law and procedural nuances is particularly valuable.
+\end{enumerate}
+By narrowing our scope to gender-based legal issues, 
+we confront both a pressing social need and a well-defined 
+technical challenge. The domain specificity enables more 
+rigorous evaluation of the system's accuracy, relevance, 
+and ethical compliance while addressing cases where the 
+consequences of inadequate legal guidance are particularly severe. 
+This focused approach also allows for the development of specialized capabilities, 
+such as sensitivity to trauma narratives and recognition of patterns specific to 
+gender-based discrimination or violence, which might be overlooked in more generalized 
+legal assistant systems.
+The technical challenge lies in creating an agentic system 
+that can effectively navigate between information extraction, 
+legal analysis, and accessible communication—all while 
+maintaining compliance with ethical guidelines for AI in 
+legal contexts and accommodating the varied 
+linguistic and educational backgrounds of potential users.
+\section{Justification}
+The development of an agentic pipeline for gender-based legal 
+cases in Colombia is justified by converging social, technological, 
+and institutional imperatives.
+
+From a social perspective, gender-based violence remains a 
+critical issue. In 2024, the Instituto Nacional de Salud (INS) 
+reported 66,621 cases of gender-based violence, with 75.6\% of 
+victims being women, amounting to 50,374 cases~\cite{ins2024}. 
+This highlights the urgent need for accessible legal assistance, 
+especially in rural and low-income communities where access to 
+legal professionals is limited.
+
+Technologically, recent advances in large language models (LLMs) 
+have created unprecedented opportunities for developing conversational 
+interfaces capable of domain-specific reasoning. Modern LLMs can 
+process natural language input, maintain contextual awareness 
+throughout multi-turn conversations, and generate nuanced 
+responses that account for the complexity of legal 
+situations~\cite{darrow2023}. This technological maturity 
+enables our proposed agentic pipeline to move beyond simple 
+information retrieval to true case assessment and strategy 
+formulation—capabilities previously exclusive to human legal 
+professionals.
+
+Institutionally, Colombia has implemented systems like the 
+Integrated Information System on Gender-Based Violence (SIVIGE), 
+which reported 58,614 cases of physical violence, 27,585 cases of 
+sexual violence, and 10,021 cases of psychological violence in 
+2021~\cite{advocates2023}. However, there remains a gap in 
+providing intelligent, interactive guidance for case assessment 
+and preparation. Our system aims to complement existing resources 
+by offering scalable assistance to users who may not have access 
+to traditional legal support structures.
+
+From an academic perspective, this work contributes to the 
+emerging field of AI for social justice by addressing several 
+open research questions:
+
 \begin{itemize}
-    \item \textbf{Complejidad procesal}: Requisitos burocráticos excesivos para trámites comunes (e.g., [Ejemplo específico de proceso legal])
-    \item \textbf{Disparidades geográficas}: Disminución progresiva de abogados/jueces por habitante en zonas rurales vs. urbanas
-    \item \textbf{Desconfianza institucional}: [Citación a estudio cualitativo sobre percepción ciudadana]
+\item How can agentic systems effectively extract legally relevant information from non-experts using natural language interaction?
+\item What architectural approaches best balance the need for legal precision with accessibility for users with limited legal literacy?
+\item What evaluation frameworks most effectively measure the impact of AI legal assistance on access to justice outcomes?
 \end{itemize}
 
-El Consultorio Jurídico de la Universidad de los Andes ha documentado [N] casos de mujeres entre [Año]-[Año], proporcionando insights valiosos sobre:
-\begin{itemize}
-    \item Tipologías de casos recurrentes (violencia doméstica, derechos de custodia, etc.)
-    \item Barreras específicas en el acceso a la justicia
-\end{itemize}
-\subsection{Problem Statement} 
-\subsection{Justification} 
-\subsection{Objectives} 
-Access to justice remains a critical challenge in Colombia, where systemic barriers—including 
-opaque legal procedures, bureaucratic inefficiencies, and a lack of affordable legal 
-representation—disproportionately affect marginalized populations. 
+Our focus on gender-based cases provides a methodologically sound 
+framework for addressing these questions. Such cases typically 
+involve well-defined legal domains (family law, labor law, criminal 
+law related to gender violence) with established procedural 
+pathways, allowing for rigorous evaluation of the system’s 
+accuracy and effectiveness. Additionally, gender-based cases 
+often involve complex intersections of factual circumstances 
+and legal principles, providing a robust test bed for evaluating 
+the system’s reasoning capabilities.
 
-% According to the Colombian National Administrative Department of Statistics (DANE, 2022), 
-% over 60\% of citizens facing legal disputes report inadequate understanding of their rights 
-% or the steps required to resolve their cases.  %TODO use actual sources 
+Ethically, our approach emphasizes responsible AI development by:
 
-This gap in legal literacy exacerbates inequities, 
-particularly for vulnerable groups such as women, who often confront intersecting socioeconomic 
-and gender-based hurdles when navigating the judicial system.
+\begin{enumerate}
+\item Working with anonymized, ethically sourced case data from relevant legal institutions;
+\item Implementing clear disclosure of the system’s limitations and its role as a complement to, not a replacement for, licensed legal counsel;
+\end{enumerate}
 
-The Consultorio Jurídico of Universidad de los Andes exemplifies a targeted effort to address these 
-disparities. By curating anonymized legal cases involving women—categorized by thematic nature 
-(e.g., domestic violence, labor discrimination, family law) and enriched with annotations 
-from legal professionals—the institution has established a structured, ethically compliant repository. 
-This dataset not only reflects prevalent legal challenges faced by women in Colombia but also provides a rigorously validated foundation for developing AI-driven tools tailored to real-world needs.
+By focusing specifically on gender-based legal cases, this research 
+addresses a pressing social need while advancing the technical state 
+of the art in conversational legal AI. Success in this domain would 
+not only provide immediate benefits to a vulnerable population but also 
+establish a methodological framework applicable to other areas of legal 
+assistance, contributing to broader efforts to democratize access to justice.
+\section{Objectives}
 
-Focusing on this subset of cases offers strategic advantages. First, it narrows the scope to a high-impact, well-defined problem space, enabling precise evaluation of the tool’s efficacy in scenarios where clarity and accuracy are paramount. Second, success in this context would validate the scalability of the proposed architecture: by addressing nuanced, jurisdiction-specific cases initially, the system can later generalize to broader legal domains, such as tenant rights or consumer protection, while maintaining compliance with Colombia’s civil law framework.
+\subsection{General Objective}
+Develop an agentic pipeline using Large Language Models (LLMs) to facilitate access to legal guidance for gender-based cases in Colombia through conversational information extraction, retrieval-augmented legal analysis, and accessible communication of strategies.
 
-Ultimately, this work seeks to democratize legal empowerment by bridging the gap between complex institutional processes and public comprehension. A tool capable of guiding users through their legal options—clarifying whom to consult, which procedures to follow, and what rights apply—has the potential to reduce reliance overburdened legal aid services, mitigate systemic inequities, and foster trust in judicial institutions. By leveraging AI to translate legalese into actionable insights, this initiative aligns with global Sustainable Development Goals (SDGs), notably SDG 16: Peace, Justice, and Strong Institutions.
+\subsection{Specific Objectives}
+\begin{enumerate}
+    \item Design and implement a conversational agent for extracting comprehensive legal case information through natural dialogue, optimized for gender-based legal matters in the Colombian context.
+    
+    \item Develop a structured knowledge base of Colombian legal documents, precedents, and procedures relevant to gender-based cases, with document embeddings created in collaboration with legal experts specializing in gender justice.
+    
+    \item Implement a Retrieval-Augmented Generation (RAG) system that leverages the extracted case information to identify applicable legal frameworks and formulate viable legal strategies based on authoritative sources.
+    
+    \item Create a communication agent capable of translating complex legal strategies into accessible language that balances legal precision with comprehensibility for users with varying levels of legal literacy.
+    
+    \item Evaluate the system through a multi-faceted approach:
+    \begin{itemize}
+        \item Quantitative assessment of the information extraction agent's accuracy, completeness, and efficiency in capturing relevant case details.
+        \item Precision and recall metrics for the RAG component's retrieval of relevant legal sources and generation of appropriate legal strategies.
+        \item User experience surveys to measure the accessibility, clarity, and actionability of the communicated legal guidance.
+        \item Expert evaluation by legal professionals specializing in gender-based cases to assess the substantive quality of the generated legal strategies.
+    \end{itemize}
+\end{enumerate}
 
+\section{Products and Publications}
+paper 
+code
+chatbot
+weights
+presentation
 \endinput
