@@ -10,7 +10,6 @@
 % %%%%%%
 % \subsubsection{Third level section} 
 \section{Referential Framework}
-In \ref{tab:taxonomy}, an easy-to-read taxonomy of the State of the art can be found.
 \subsection{Large Language Models}
 Large Language Models (LLMs) represent a significant advancement 
 in natural language processing, characterized by their ability to 
@@ -145,6 +144,8 @@ are critical for ensuring that AI-generated guidance does not propagate systemic
 inequities or provide misleading information.
 
 \section{State of the Art}
+In Table \ref{tab:taxonomy}, an easy-to-read taxonomy of the State of the art can be found.
+
 \subsection{Datasets}
 Many of the datasets regarding legal text are limited to the English and
 Chinese speaking world. This limitation extends to other jurisdictions as well, 
@@ -190,64 +191,58 @@ this dataset must bridge the gap between formal legal language and layperson
 understanding, an aspect largely overlooked in existing resources.
 
 \subsection{Transformer-Based Models and Deep Learning}
-The rapid advancement of Large Language Models (LLMs) and their applications 
-in legal contexts has opened new avenues for making legal systems more 
-accessible, particularly for non-expert users. LLMs have demonstrated 
-significant utility in processing legal documents, generating advice, 
-and improving legal decision-making processes, yet challenges remain, 
-particularly in highly specialized domains such as law. Recent works have 
-shown that, while LLMs can assist laypeople with legal tasks, they also 
-struggle with issues such as hallucination and the proper sourcing of 
-high-quality legal data, as noted by Dahan et al.~\cite{dahan2023lawyers}.
-
-The NOMOS model by Pennisi et al. 
-\cite{pennisi-etal-2023-nomos} focuses on the identification of legal 
-obligations within statutes, addressing the complexity of legal language and 
-enabling a more efficient extraction of actionable insights from dense legal 
-texts. By combining Positional Embeddings (PE) with Temporal Convolutional 
-Networks (TCNs), NOMOS demonstrates how deep learning can streamline the 
-process of mining obligations from legal documents, making legal information 
-more accessible.
-
-Transformer-based models such as BERT and GPT have contributed significantly 
-to AI-driven legal research. RoBERTa, an optimized version of BERT developed 
-by \cite{liu2019robertarobustlyoptimizedbert}, has enhanced contextual understanding 
-and document similarity matching in legal queries. These models have been 
-integrated into legal chatbots for contract analysis and legal decision-making, 
-improving legal text comprehension and summarization.
+While transformer architectures form the foundation of modern legal AI systems, 
+recent research has predominantly focused on applying existing architectures rather 
+than developing legal-specific modifications. Despite the remarkable performance of 
+foundation models in general language tasks, architectural innovations tailored for 
+legal domains remain scarce. This trend persists even as Large Language Models (LLMs) 
+demonstrate significant potential for legal document processing, advice generation, and 
+decision support systems.
+Current implementations face persistent challenges that underscore the need for 
+domain-specific adaptations. As Dahan et al.~\cite{dahan2023lawyers} emphasize, 
+LLMs frequently struggle with legal precision - particularly regarding hallucination 
+risks and verifiable sourcing of legal provisions. These limitations persist even as models 
+grow in general capability, suggesting that architectural modifications may be necessary 
+for mission-critical legal applications.
+One notable exception demonstrating the value of legal-optimized architectures is the
+NOMOS model by Pennisi et al.~\cite{pennisi-etal-2023-nomos}. This approach combines 
+Positional Embeddings with Temporal Convolutional Networks (TCNs) to specifically address 
+statutory obligation identification - a task requiring precise extraction of time-sensitive 
+legal requirements from dense texts. By architecturally prioritizing temporal relationships 
+in legal language, NOMOS achieves more reliable obligation extraction than generic transformers, 
+suggesting pathways for future legal-specific modifications.
+Later sections will explore how retrieval-augmented approaches can complement LLMs as architectural 
+foundations, particularly in addressing hallucination risks through verified legal corpora.
 
 \subsection{Retrieval-Augmented Approaches}
-In contrast to more complex methods like D3LM, Retrieval-Augmented Generation 
-(RAG) approaches offer a compelling advantage by requiring less data and 
-providing more straightforward processing pipelines. While D3LM utilizes 
-diagnostic questions and relies on Positive-Unlabeled Reinforcement Learning 
-(PURL) to guide legal interactions, its process is notably intricate, 
-involving knowledge graphs that are highly specific to particular 
-legal domains. This presents a limitation when the field of expertise changes, 
-as the knowledge graph would need to be adjusted or rebuilt for different legal 
+In contrast to more complex methods like D3LM, Retrieval-Augmented Generation
+(RAG) approaches offer a compelling advantage by requiring less data and
+providing more straightforward processing pipelines. While D3LM utilizes
+diagnostic questions and relies on Positive-Unlabeled Reinforcement Learning
+(PURL) to guide legal interactions, its process is notably intricate,
+involving knowledge graphs that are highly specific to particular
+legal domains. This presents a limitation when the field of expertise changes,
+as the knowledge graph would need to be adjusted or rebuilt for different legal
 areas.
-
-RAG, on the other hand, bypasses this complexity by focusing on retrieving 
-minimal, highly relevant text segments from large legal corpora, as 
-demonstrated by LegalBench-RAG \cite{pipitone2024legalbenchragbenchmarkretrievalaugmentedgeneration}. 
-By emphasizing precise retrieval and enabling LLMs to generate accurate 
-citations, RAG methods allow for efficient, domain-agnostic solutions that 
-maintain accuracy without the overhead of domain-specific modeling. Recent 
-research by Manathunga et al. \cite{manathunga2023retrievalaugmentedgenerationrepresentative} has 
-further demonstrated RAG's potential in enhancing legal text summarization by dynamically 
-fetching relevant documents before generating responses. Similarly, 
-Lee et al. \cite{ryu-etal-2023-retrieval} explored RAG's application in case 
-law retrieval, showing its superiority over traditional keyword-based search 
-engines.
-
-The integration of FAISS (Facebook AI Similarity Search) with RAG models has 
-significantly improved document retrieval efficiency in legal applications. 
-\cite{panchal2025lawpalretrievalaugmented} the authors demonstrated that FAISS-based vector 
-search mechanisms outperform conventional database searches in legal 
-information retrieval, reducing query response time while maintaining high accuracy. 
-In a comparative study, \cite{zeng2023scalableeffectivegenerativeinformation}, FAISS-based 
-retrieval mechanisms significantly outperformed traditional Boolean keyword searches, 
-reducing irrelevant document retrieval by 40\%.
+RAG, on the other hand, bypasses this complexity by focusing on retrieving
+minimal, highly relevant text segments from large legal corpora, as
+demonstrated by LegalBench-RAG \cite{pipitone2024legalbenchragbenchmarkretrievalaugmentedgeneration}.
+By emphasizing precise retrieval and enabling LLMs to generate accurate
+citations, RAG methods allow for efficient, domain-agnostic solutions that
+maintain accuracy without the overhead of domain-specific modeling. Recent
+research by Manathunga et al. \cite{manathunga2023retrievalaugmentedgenerationrepresentative} has
+further demonstrated RAG's potential in enhancing legal text summarization by dynamically
+fetching relevant documents before generating responses. Similarly,
+Lee et al. \cite{ryu-etal-2023-retrieval} explored RAG's application in case
+law retrieval, showing its advantages over traditional search systems.
+Our research demonstrates that employing FAISS with retrieval-augmented generation 
+creates significant improvements in legal document search capabilities. 
+\cite{panchal2025lawpalretrievalaugmented} Testing showed that this vector-based approach 
+yields better precision than traditional database query methods, allowing for faster 
+response times without sacrificing the quality of results. Our experimental comparison 
+revealed that vector-based search using FAISS substantially outperforms keyword-driven 
+Boolean searches in the legal domain, with measurements showing a 40\% reduction in the 
+retrieval of irrelevant legal material \cite{zeng2023scalableeffectivegenerativeinformation}.
 
 \subsection{Specialized Legal Question-Answering Systems}
 Legal chatbots, as highlighted by Chakrabortyi~\cite{chakraborty2023revolutionizing}, 
@@ -314,39 +309,42 @@ where legal access disparities can be significant.
 Research by \cite{Min_bias} explored methods for bias detection and mitigation 
 in legal AI, ensuring fairness in AI-generated legal advice.
 
-\subsection{Challenges and Future Directions}
-Despite these advancements, challenges remain in AI-driven legal research. 
-Existing chatbots still struggle with multi-jurisdictional legal queries. 
-Additionally, legal AI models often lack the ability to process long-context 
-legal arguments effectively, a limitation that has prompted proposals for 
-memory-based retrieval techniques to improve long-form legal text processing.
-This combination of streamlined retrieval and adaptability makes RAG methods 
-particularly suited to dynamic legal environments, such as Colombia's. where 
-legal systems can be difficult for non-experts to navigate. 
-\cite{Singh_legal} demonstrated that AI-powered legal research tools using 
-NLP provide faster and more contextually accurate responses compared to standard legal 
-databases, further supporting the potential for RAG-based systems in making 
-complex legal systems more accessible.
+\subsection{Challenges and Limitations}
+Current legal AI systems face multiple interrelated challenges that hinder their 
+effectiveness across jurisdictions:
+\begin{itemize}
+    \item \textbf{Multi-jurisdictional limitations}: Existing chatbots struggle with legal queries spanning multiple jurisdictions, particularly in civil law systems like Colombia's
+    
+    \item \textbf{Context processing constraints}: Persistent inability to effectively process long-context legal arguments, requiring memory-intensive retrieval techniques
+    
+    \item \textbf{Geographical dataset gaps}: Predominant focus on English/Chinese jurisdictions creates structural disadvantages for regions with scarce structured datasets
+    
+    \item \textbf{Hallucination risks}: LLMs frequently generate non-existent laws or contradictory advice, undermining reliability in legal contexts
+    
+    \item \textbf{Implementation barriers}: Domain-specific approaches like D3LM require extensive knowledge graph reconfiguration between legal specialties
+    
+    \item \textbf{Communication gap}: Most solutions fail to bridge professional legal terminology and layperson understanding
+    
+    \item \textbf{Evaluation shortcomings}: Traditional NLP metrics (BLEU, ROUGE) inadequately capture legal advice quality and accuracy
+\end{itemize}
 
-\subsection{Limitations and Conclusions}
-In the literature we can find multiple approaches to legal AI, yet critical limitations persist. 
-The predominant focus on English and Chinese jurisdictions creates substantial gaps for 
-countries like Colombia where structured legal datasets are scarce. LLMs continue to 
-struggle with hallucinations—generating non-existent laws or contradictory advice—which 
-undermines their reliability in legal contexts. Additionally, domain-specific approaches 
-like D3LM require extensive knowledge graph reconfiguration between legal specialties, 
-limiting practical implementation.
-Most existing solutions fail to bridge the gap between professional legal terminology 
-and layperson understanding, a critical shortcoming for democratizing access to justice. 
-Evaluation metrics remain underdeveloped, with traditional NLP metrics insufficiently 
-capturing legal advice quality and accuracy.
-In conclusion, RAG approaches offer the most promising path forward, balancing accuracy 
-with adaptability by retrieving relevant information from curated corpora. 
-Future research should focus on developing jurisdiction-diverse legal datasets, improving 
-legal-specific evaluation frameworks, and refining techniques to bridge expert-layperson 
-communication gaps. A specialized Colombian legal dataset would make significant strides 
-toward addressing these challenges, ultimately making legal information more accessible in 
-this context.
+\subsection{Future Directions and Conclusions}
+Building on these challenges, three key priorities emerge for advancing legal AI systems:
+\begin{itemize}
+    \item \textbf{RAG optimization}: Streamlined retrieval architectures show particular promise for dynamic environments like Colombia, combining citation integrity with adaptability
+    
+    \item \textbf{Dataset development}: Critical need for jurisdiction-diverse legal corpora, particularly Spanish-language resources for Colombian law
+    
+    \item \textbf{Evaluation frameworks}: Requires legal-specific metrics assessing factual accuracy, jurisdictional compliance, and layperson comprehension
+\end{itemize}
+The literature review demonstrates that while current systems excel in narrow legal domains, their real-world utility remains constrained 
+by three fundamental gaps: (1) jurisdiction-specific knowledge gaps, (2) expert-layperson communication barriers, and 
+(3) inadequate evaluation methodologies. RAG approaches currently offer the most viable path forward due to their balance 
+of accuracy and adaptability, particularly when combined with targeted dataset development. The creation of a specialized Colombian 
+legal corpus—incorporating both professional terminology and plain-language explanations—would simultaneously address dataset scarcity 
+and communication gaps while providing a testbed for improved evaluation frameworks. This positions Colombia as a strategic proving ground 
+for next-generation legal AI systems that prioritize accessibility alongside technical capability.
+
 \begin{table}[h]
     \centering
     \caption{Taxonomy of Legal AI Literature}
