@@ -10,6 +10,7 @@
 % %%%%%%
 % \subsubsection{Third level section} 
 \section{Referential Framework}
+In \ref{tab:taxonomy}, an easy-to-read taxonomy of the State of the art can be found.
 \subsection{Large Language Models}
 Large Language Models (LLMs) represent a significant advancement 
 in natural language processing, characterized by their ability to 
@@ -149,7 +150,46 @@ Many of the datasets regarding legal text are limited to the English and
 Chinese speaking world. This limitation extends to other jurisdictions as well, 
 creating challenges for developing legal AI systems in countries like Colombia 
 where access to structured legal datasets is either restricted or non-existent.
-\subsection{Approaches}
+Several relevant datasets exist in the legal domain, although most focus on 
+English-language jurisdictions. CaseHOLD \cite{zheng2021does} provides over 
+53,000 multiple-choice questions about legal holdings, but exclusively 
+covers US courts. Similarly, LegalBench \cite{guha2023legalbench} offers 
+162 legal reasoning tasks across six reasoning types, yet remains primarily 
+focused on common law jurisdictions. For question-answering specifically, 
+AsyLex \cite{tay2023asylex} contains refugee law documents with entity 
+annotations and case outcomes, while MAUD \cite{wang2023maud} focuses 
+on merger agreements with expert annotations.
+A notable limitation of existing datasets is their focus on professional 
+legal language rather than addressing the gap between legal terminology and 
+layperson understanding. While datasets contain valuable legal information, 
+they don't specifically bridge legal and everyday language. The Plain English 
+Summarization of Contracts \cite{manor2019plain} attempts to address this disparity 
+but remains limited in scope and doesn't extend to question-answering systems for 
+non-experts. LegalDiscourse \cite{spangher-etal-2024-legaldiscourse} examines when 
+laws apply and who they affect but still operates within the legal language domain 
+rather than translating legal concepts for laypeople.
+In the retrieval domain, CLERC \cite{hou2024clercdatasetlegalcase} serves as a 
+backbone for legal case retrieval and retrieval-augmented analysis generation, 
+addressing the need to locate and cite relevant precedents. For multilingual 
+applications, EUR-Lex-Sum \cite{aumiller-etal-2022-eur} provides legal act 
+summarization across 24 European languages, though it does not address the 
+Spanish-language context of Colombia.
+The lack of Spanish-language legal datasets, particularly for Colombian law, 
+creates a significant research gap. Existing work such as the Unfair Clause 
+Detection corpus \cite{Galassi2024} demonstrates cross-lingual approaches 
+for legal NLP, but does not address the specific legal structures and language 
+patterns in Colombian law. The Open Australian Legal Corpus \cite{butler-2025-open-australian-legal-corpus} 
+shows how comprehensive jurisdiction-specific datasets can be constructed for 
+legal AI development, providing a potential template for our approach.
+The creation of a specialized Colombian legal dataset is therefore necessary 
+to address the specific linguistic features, legal structures, and reasoning 
+patterns unique to this jurisdiction. Such a dataset would enable the development 
+of legal AI systems that can effectively navigate Colombian law, making legal 
+information more accessible to non-expert users in this context. Most critically, 
+this dataset must bridge the gap between formal legal language and layperson 
+understanding, an aspect largely overlooked in existing resources.
+
+\subsection{Transformer-Based Models and Deep Learning}
 The rapid advancement of Large Language Models (LLMs) and their applications 
 in legal contexts has opened new avenues for making legal systems more 
 accessible, particularly for non-expert users. LLMs have demonstrated 
@@ -159,20 +199,23 @@ particularly in highly specialized domains such as law. Recent works have
 shown that, while LLMs can assist laypeople with legal tasks, they also 
 struggle with issues such as hallucination and the proper sourcing of 
 high-quality legal data, as noted by Dahan et al.~\cite{dahan2023lawyers}.
-Legal chatbots, as highlighted by Chakrabortyi~\cite{chakraborty2023revolutionizing}, 
-have become powerful tools in democratizing access to legal services by 
-offering cost-effective, on-demand guidance. These AI-driven systems, 
-including well-known platforms such as DoNotPay and LegalZoom, 
-help users draft documents and resolve disputes, although they cannot 
-fully replace the nuanced expertise of human lawyers. Alongside these, 
-works like Wu et al.'s Diagnostic Legal Large Language Model 
-(D3LM)~\cite{wu2024knowledgeinfusedlegalwisdomnavigating} focus on improving LLM 
-interactions with non-expert users by employing lawyer-like diagnostic 
-questions to better guide legal queries. This model's use of 
-Positive-Unlabeled Reinforcement Learning (PURL) significantly 
-enhances the user experience by generating more relevant, targeted questions, 
-ensuring that pertinent legal factors are considered during interactions 
-with the LLM.
+
+The NOMOS model by Pennisi et al. 
+\cite{pennisi-etal-2023-nomos} focuses on the identification of legal 
+obligations within statutes, addressing the complexity of legal language and 
+enabling a more efficient extraction of actionable insights from dense legal 
+texts. By combining Positional Embeddings (PE) with Temporal Convolutional 
+Networks (TCNs), NOMOS demonstrates how deep learning can streamline the 
+process of mining obligations from legal documents, making legal information 
+more accessible.
+
+Transformer-based models such as BERT and GPT have contributed significantly 
+to AI-driven legal research. RoBERTa, an optimized version of BERT developed 
+by \cite{liu2019robertarobustlyoptimizedbert}, has enhanced contextual understanding 
+and document similarity matching in legal queries. These models have been 
+integrated into legal chatbots for contract analysis and legal decision-making, 
+improving legal text comprehension and summarization.
+
 \subsection{Retrieval-Augmented Approaches}
 In contrast to more complex methods like D3LM, Retrieval-Augmented Generation 
 (RAG) approaches offer a compelling advantage by requiring less data and 
@@ -183,6 +226,7 @@ involving knowledge graphs that are highly specific to particular
 legal domains. This presents a limitation when the field of expertise changes, 
 as the knowledge graph would need to be adjusted or rebuilt for different legal 
 areas.
+
 RAG, on the other hand, bypasses this complexity by focusing on retrieving 
 minimal, highly relevant text segments from large legal corpora, as 
 demonstrated by LegalBench-RAG \cite{pipitone2024legalbenchragbenchmarkretrievalaugmentedgeneration}. 
@@ -195,6 +239,7 @@ fetching relevant documents before generating responses. Similarly,
 Lee et al. \cite{ryu-etal-2023-retrieval} explored RAG's application in case 
 law retrieval, showing its superiority over traditional keyword-based search 
 engines.
+
 The integration of FAISS (Facebook AI Similarity Search) with RAG models has 
 significantly improved document retrieval efficiency in legal applications. 
 \cite{panchal2025lawpalretrievalaugmented} the authors demonstrated that FAISS-based vector 
@@ -203,22 +248,24 @@ information retrieval, reducing query response time while maintaining high accur
 In a comparative study, \cite{zeng2023scalableeffectivegenerativeinformation}, FAISS-based 
 retrieval mechanisms significantly outperformed traditional Boolean keyword searches, 
 reducing irrelevant document retrieval by 40\%.
-\subsection{Transformer-Based Models and Deep Learning}
-In another vein, the NOMOS model by Pennisi et al. 
-\cite{pennisi-etal-2023-nomos} focuses on the identification of legal 
-obligations within statutes, addressing the complexity of legal language and 
-enabling a more efficient extraction of actionable insights from dense legal 
-texts. By combining Positional Embeddings (PE) with Temporal Convolutional 
-Networks (TCNs), NOMOS demonstrates how deep learning can streamline the 
-process of mining obligations from legal documents, making legal information 
-more accessible.
-Transformer-based models such as BERT and GPT have contributed significantly 
-to AI-driven legal research. RoBERTa, an optimized version of BERT developed 
-by \cite{Lliu2019robertarobustlyoptimizedbert}, has enhanced contextual understanding 
-and document similarity matching in legal queries. These models have been 
-integrated into legal chatbots for contract analysis and legal decision-making, 
-improving legal text comprehension and summarization.
+
 \subsection{Specialized Legal Question-Answering Systems}
+Legal chatbots, as highlighted by Chakrabortyi~\cite{chakraborty2023revolutionizing}, 
+have become powerful tools in democratizing access to legal services by 
+offering cost-effective, on-demand guidance. These AI-driven systems, 
+including well-known platforms such as DoNotPay and LegalZoom, 
+help users draft documents and resolve disputes, although they cannot 
+fully replace the nuanced expertise of human lawyers.
+
+Works like Wu et al.'s Diagnostic Legal Large Language Model 
+(D3LM)~\cite{wu2024knowledgeinfusedlegalwisdomnavigating} focus on improving LLM 
+interactions with non-expert users by employing lawyer-like diagnostic 
+questions to better guide legal queries. This model's use of 
+Positive-Unlabeled Reinforcement Learning (PURL) significantly 
+enhances the user experience by generating more relevant, targeted questions, 
+ensuring that pertinent legal factors are considered during interactions 
+with the LLM.
+
 Meanwhile, Jonathan Li et al. \cite{li2024experimentinglegalaisolutions} 
 introduce a human-centric approach to legal question-answering systems in 
 their work, which develops the LegalQA dataset. This dataset comprises real, 
@@ -229,12 +276,14 @@ correct and comprehensible answers for laypeople. This framework is an
 important step towards addressing some of the gaps found in general-purpose LLMs, 
 particularly by ensuring that the legal information delivered is both accurate and 
 relevant to users' needs.
+
 \subsection{Chain-of-Thought and Reasoning Approaches}
 Mavi et al. \cite{mavi2023retrievalaugmentedchainofthoughtsemistructureddomains} 
 explore the Retrieval-Augmented Chain-of-Thought (CoT) model, which tackles specialized 
 legal tasks by efficiently retrieving context from semi-structured data. Their model 
 enhances the reasoning abilities of LLMs, especially in legal question-answering 
 scenarios, by incorporating important contextual information within token limitations.
+
 While the Chain-of-Thought (CoT) approach offers valuable step-by-step reasoning that 
 improves the decision-making process in complex legal tasks, it comes with its own challenges. 
 CoT relies heavily on structured reasoning, which is well-suited for certain specialized legal tasks 
@@ -243,6 +292,7 @@ semi-structured data, can sometimes hinder scalability and efficiency when compa
 retrieval and generation process of RAG. Thus, while CoT has clear benefits in enhancing accuracy for complex 
 legal queries, RAG's simplicity and adaptability make it particularly advantageous for real-world applications 
 where legal fields and contexts are constantly shifting.
+
 \subsection{Addressing Hallucinations and Evaluation}
 One of the most prominent problems when it comes to LLMs, especially in the legal domain, 
 is the presence of hallucinations. For instance, when replying to a legal question, 
@@ -253,6 +303,7 @@ to evaluate model's hallucinations, using the groundtruth law set as a reference
 \cite{Papineni_bleu} and \cite{lin-2004-rouge} introduced automated metrics 
 such as BLEU and ROUGE scores which can be used to evaluate AI-generated 
 legal text summaries, ensuring their quality and relevance.
+
 \subsection{Access to Justice and Ethical Considerations}
 The practical applications of legal AI chatbots have been studied extensively 
 in the context of access to justice and AI ethics. 
@@ -262,6 +313,7 @@ accessible. This is particularly relevant for systems like Colombia's,
 where legal access disparities can be significant. 
 Research by \cite{Min_bias} explored methods for bias detection and mitigation 
 in legal AI, ensuring fairness in AI-generated legal advice.
+
 \subsection{Challenges and Future Directions}
 Despite these advancements, challenges remain in AI-driven legal research. 
 Existing chatbots still struggle with multi-jurisdictional legal queries. 
@@ -275,6 +327,139 @@ legal systems can be difficult for non-experts to navigate.
 NLP provide faster and more contextually accurate responses compared to standard legal 
 databases, further supporting the potential for RAG-based systems in making 
 complex legal systems more accessible.
+
+\subsection{Limitations and Conclusions}
+In the literature we can find multiple approaches to legal AI, yet critical limitations persist. 
+The predominant focus on English and Chinese jurisdictions creates substantial gaps for 
+countries like Colombia where structured legal datasets are scarce. LLMs continue to 
+struggle with hallucinations—generating non-existent laws or contradictory advice—which 
+undermines their reliability in legal contexts. Additionally, domain-specific approaches 
+like D3LM require extensive knowledge graph reconfiguration between legal specialties, 
+limiting practical implementation.
+Most existing solutions fail to bridge the gap between professional legal terminology 
+and layperson understanding, a critical shortcoming for democratizing access to justice. 
+Evaluation metrics remain underdeveloped, with traditional NLP metrics insufficiently 
+capturing legal advice quality and accuracy.
+In conclusion, RAG approaches offer the most promising path forward, balancing accuracy 
+with adaptability by retrieving relevant information from curated corpora. 
+Future research should focus on developing jurisdiction-diverse legal datasets, improving 
+legal-specific evaluation frameworks, and refining techniques to bridge expert-layperson 
+communication gaps. A specialized Colombian legal dataset would make significant strides 
+toward addressing these challenges, ultimately making legal information more accessible in 
+this context.
+\begin{table}[h]
+    \centering
+    \caption{Taxonomy of Legal AI Literature}
+    \label{tab:taxonomy}
+    \setlength{\tabcolsep}{4pt} % Reduce column padding
+    \begin{tabular}{p{3.2cm}p{3.8cm}p{6cm}} % Adjusted column widths
+    \toprule
+    \textbf{Category} & \textbf{Subcategory} & \textbf{Papers} \\
+    \midrule
+    
+    % --- Datasets Section ---
+    \multirow{5}{*}{Datasets} 
+    & English Legal Datasets & 
+    \begin{tabular}[t]{@{}p{\linewidth}@{}}
+    \cite{zheng2021does} - CaseHOLD \\
+    \cite{guha2023legalbench} - LegalBench \\
+    \cite{tay2023asylex} - AsyLex \\
+    \cite{wang2023maud} - MAUD \\
+    \cite{butler-2025-open-australian-legal-corpus} - Open Australian Legal Corpus
+    \end{tabular} \\
+    \cline{2-3}
+    
+    & Multilingual Legal Datasets & 
+    \begin{tabular}[t]{@{}p{\linewidth}@{}}
+    \cite{aumiller-etal-2022-eur} - EUR-Lex-Sum \\
+    \cite{Galassi2024} - Unfair Clause Detection
+    \end{tabular} \\
+    \cline{2-3}
+    
+    & Legal-Layperson Bridging & 
+    \begin{tabular}[t]{@{}p{\linewidth}@{}}
+    \cite{manor2019plain} - Plain English Summarization \\
+    \cite{spangher-etal-2024-legaldiscourse} - LegalDiscourse
+    \end{tabular} \\
+    \cline{2-3}
+    
+    & Legal Case Retrieval & 
+    \cite{hou2024clercdatasetlegalcase} - CLERC \\ 
+    \midrule
+    
+    % --- Transformer Models ---
+    \multirow{2}{*}{Transformer-Based} 
+    & Pre-trained Models & 
+    \cite{liu2019robertarobustlyoptimizedbert} - RoBERTa \\ 
+    \cline{2-3}
+    
+    & Domain-Specific Models & 
+    \begin{tabular}[t]{@{}p{\linewidth}@{}}
+    \cite{pennisi-etal-2023-nomos} - NOMOS \\
+    \cite{dahan2023lawyers} - Lawyers and LLMs
+    \end{tabular} \\ 
+    \midrule
+    
+    % --- Retrieval Approaches ---
+    \multirow{2}{*}{Retrieval-Augmented} 
+    & RAG Systems & 
+    \begin{tabular}[t]{@{}p{\linewidth}@{}}
+    \cite{pipitone2024legalbenchragbenchmarkretrievalaugmentedgeneration} - LegalBench-RAG \\
+    \cite{manathunga2023retrievalaugmentedgenerationrepresentative} - RAG Summarization \\
+    \cite{ryu-etal-2023-retrieval} - Case Law RAG \\
+    \cite{panchal2025lawpalretrievalaugmented} - LawPal
+    \end{tabular} \\
+    \cline{2-3}
+    
+    & Similarity Search & 
+    \cite{zeng2023scalableeffectivegenerativeinformation} - FAISS Retrieval \\ 
+    \midrule
+    
+    % --- QA Systems ---
+    \multirow{2}{*}{Specialized Legal QA} 
+    & Legal Chatbots & 
+    \cite{chakraborty2023revolutionizing} - Legal Chatbots \\ 
+    \cline{2-3}
+    
+    & Diagnostic Systems & 
+    \begin{tabular}[t]{@{}p{\linewidth}@{}}
+    \cite{wu2024knowledgeinfusedlegalwisdomnavigating} - D3LM \\
+    \cite{li2024experimentinglegalaisolutions} - LegalQA
+    \end{tabular} \\ 
+    \midrule
+    
+    % --- COT ---
+    Chain-of-Thought & RAG-CoT Integration & 
+    \cite{mavi2023retrievalaugmentedchainofthoughtsemistructureddomains} - RAG-CoT \\ 
+    \midrule
+    
+    % --- Evaluation ---
+    \multirow{2}{*}{Evaluation} 
+    & Metrics & 
+    \begin{tabular}[t]{@{}p{\linewidth}@{}}
+    \cite{Papineni_bleu} - BLEU \\
+    \cite{lin-2004-rouge} - ROUGE
+    \end{tabular} \\ 
+    \cline{2-3}
+    
+    & Hallucination Detection & 
+    \cite{hu2025finetuninglargelanguagemodels} - Hallucination Benchmark \\ 
+    \midrule
+    
+    % --- Ethics ---
+    AI Ethics & Bias Mitigation & 
+    \cite{Min_bias} - Bias Detection \\ 
+    \midrule
+    
+    % --- Research Tools ---
+    Legal Research Tools & NLP Systems & 
+    \cite{Singh_legal} - AI Legal Research \\ 
+    \bottomrule
+    \end{tabular}
+    \end{table}
+
+
+
 % \subsection{Domain-Specific LLMs for Legal and Regulatory Text}
 % In \cite{martinez-etal-2025-scalable}, where we present a comprehensive approach to 
 % developing LLMs tailored specifically for understanding regulatory texts. 
