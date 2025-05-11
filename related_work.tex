@@ -20,14 +20,17 @@ enabling them to perform a wide range of language tasks without task-specific tr
 These models have demonstrated remarkable capabilities in text generation, summarization, translation, 
 and even complex reasoning tasks~\cite{brown2020}.
 \subsection{Transformer Architecture}
-The transformer architecture, introduced by Vaswani et 
-al.~\cite{vaswani2023attentionneed}, forms the foundation of modern 
-LLMs. Unlike recurrent neural networks, transformers process entire 
-sequences simultaneously through self-attention mechanisms, allowing for 
-more efficient training and better modeling of long-range dependencies in 
-text. The architecture consists of an encoder and decoder, each composed 
-of multi-head attention layers and feed-forward neural networks, enabling 
-parallel processing and effective representation learning.
+The transformer architecture, introduced by Vaswani et al.~\cite{vaswani2023attentionneed}, forms the 
+foundation of modern LLMs. Unlike recurrent neural networks, transformers process entire sequences simultaneously 
+through self-attention mechanisms, allowing for more efficient training and better modeling of long-range dependencies in text. 
+The architecture consists of an encoder and decoder, each composed of multi-head attention layers and feed-forward neural networks, 
+enabling parallel processing and effective representation learning, as illustrated in Figure~\ref{fig:transfromer_arch}.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/transformer_arch.png}
+    \caption{Transformer Architecture}
+    \label{fig:transfromer_arch}
+\end{figure}
 \subsection{Generative and Discriminative LLMs}
 LLMs can be categorized as either generative or discriminative based on
 their primary function. Generative LLMs, such as GPT models, focus on 
@@ -130,7 +133,12 @@ offers a more nuanced evaluation of text quality. For legal applications,
 domain-specific metrics might include assessments of legal accuracy, 
 procedural correctness, and citation validity. Human evaluation remains crucial, 
 particularly for assessing qualities like helpfulness, clarity, and appropriateness 
-of legal guidance.
+of legal guidance \cite{guha2023legalbench, li2024experimentinglegalaisolutions}. 
+Multi-dimensional evaluation frameworks that combine automated metrics, expert assessment, 
+and layperson comprehension tests offer the most comprehensive approach to assessing legal AI systems, 
+especially those intended to bridge the gap between legal professionals and the general public \cite{guo2023evaluating}. 
+This holistic approach helps ensure that legal AI systems not only generate accurate and relevant 
+information but also communicate it effectively to users with varying levels of legal expertise.
 \subsection{Hallucinations and Bias}
 LLMs are prone to hallucinations—generating content that is factually incorrect 
 or unfounded—and may perpetuate or amplify biases present in their training data. 
@@ -235,14 +243,15 @@ further demonstrated RAG's potential in enhancing legal text summarization by dy
 fetching relevant documents before generating responses. Similarly,
 Lee et al. \cite{ryu-etal-2023-retrieval} explored RAG's application in case
 law retrieval, showing its advantages over traditional search systems.
-Our research demonstrates that employing FAISS with retrieval-augmented generation 
-creates significant improvements in legal document search capabilities. 
-\cite{panchal2025lawpalretrievalaugmented} Testing showed that this vector-based approach 
-yields better precision than traditional database query methods, allowing for faster 
-response times without sacrificing the quality of results. Our experimental comparison 
-revealed that vector-based search using FAISS substantially outperforms keyword-driven 
-Boolean searches in the legal domain, with measurements showing a 40\% reduction in the 
-retrieval of irrelevant legal material \cite{zeng2023scalableeffectivegenerativeinformation}.
+
+Many of these systems leverage FAISS (Facebook AI Similarity Search), a powerful library for 
+Approximate Nearest Neighbor Search (ANNS) \cite{douze2025faisslibrary}. FAISS provides a versatile 
+toolbox of indexing methods that enable efficient vector similarity searches without requiring external 
+dependencies. \cite{zeng2023scalableeffectivegenerativeinformation} demonstrated that vector-based search using 
+FAISS substantially outperforms keyword-driven Boolean searches in the legal domain, with measurements showing a 40\% 
+reduction in the retrieval of irrelevant legal material. Similarly, \cite{panchal2025lawpalretrievalaugmented} showed 
+that this vector-based approach yields better precision than traditional database query methods, allowing for faster 
+response times without sacrificing the quality of results.
 
 \subsection{Specialized Legal Question-Answering Systems}
 Legal chatbots, as highlighted by Chakrabortyi~\cite{chakraborty2023revolutionizing}, 
@@ -291,42 +300,87 @@ where legal fields and contexts are constantly shifting.
 \subsection{Addressing Hallucinations and Evaluation}
 One of the most prominent problems when it comes to LLMs, especially in the legal domain, 
 is the presence of hallucinations. For instance, when replying to a legal question, 
-the model may come up with non-existent laws or contradictory recommendations. 
-It is of very high importance then, to avoid this kind of issues. 
-In \cite{hu2025finetuninglargelanguagemodels} the authors create a benchmark 
-to evaluate model's hallucinations, using the groundtruth law set as a reference.
-\cite{Papineni_bleu} and \cite{lin-2004-rouge} introduced automated metrics 
-such as BLEU and ROUGE scores which can be used to evaluate AI-generated 
-legal text summaries, ensuring their quality and relevance.
+the model may generate non-existent laws or contradictory recommendations. 
+The criticality of factual accuracy in legal applications makes this issue particularly concerning.
+In \cite{hu2025finetuninglargelanguagemodels}, the authors address this challenge by creating a 
+benchmark to systematically evaluate model hallucinations, using groundtruth law sets as reference.
+Various techniques have emerged to mitigate hallucinations in legal systems, including retrieval-augmented
+generation that grounds responses in verified legal sources, and uncertainty quantification methods
+that help identify when a model might be generating unreliable content.
+
+Regarding evaluation methodologies for legal AI systems, the field has evolved beyond traditional metrics
+to include more specialized assessment approaches. While automated metrics such as BLEU \cite{Papineni_bleu} 
+and ROUGE \cite{lin-2004-rouge} have been widely used to evaluate AI-generated legal text summaries, 
+these metrics primarily measure syntactic similarity rather than legal accuracy. More recent evaluation 
+frameworks incorporate BERTScore \cite{zhang2020bertscoreevaluatingtextgeneration}, which uses contextual 
+embeddings to better capture semantic similarity between generated and reference texts. 
+
+Domain-specific evaluations have also emerged, including assessments of citation accuracy, 
+legal reasoning correctness \cite{guha2023legalbench}, and compliance with jurisdictional requirements.
+These evaluations often focus on the model's ability to apply legal principles correctly, 
+understand complex legal arguments, and provide accurate references to relevant statutes and precedents.
+The evaluation of legal reasoning capabilities can be broken down into six key dimensions: problem identification, 
+rule recall, rule application, rule conclusion, interpretation, and rhetorical understanding. Each dimension 
+requires specific assessment methodologies and carefully curated evaluation tasks that reflect real-world legal 
+scenarios while maintaining objective evaluation criteria.
+
+A comprehensive evaluation framework for legal AI systems should encompass multiple dimensions, as suggested by \cite{guo2023evaluating}. 
+This includes not only the assessment of knowledge and reasoning capabilities but also considerations of ethical alignment, 
+robustness, and domain-specific performance. In the legal context, this translates to evaluating the model's ability to 
+maintain consistency across different legal domains, handle complex multi-step reasoning tasks, and provide reliable 
+responses under various conditions. The framework should also consider the model's capacity to recognize its limitations 
+and appropriately defer to human expertise when necessary.
+
+The effectiveness of these evaluation frameworks depends heavily on the quality and diversity of the evaluation 
+data. This includes a mix of real legal documents, synthetic scenarios, and carefully curated test cases that 
+cover various legal domains and complexity levels. The evaluation process should also consider the model's 
+ability to handle different types of legal reasoning tasks, from straightforward rule application to complex 
+interpretation scenarios, while maintaining consistency across different legal contexts and jurisdictions.
 
 \subsection{Access to Justice and Ethical Considerations}
 The practical applications of legal AI chatbots have been studied extensively 
-in the context of access to justice and AI ethics. 
-[citation!!!!] highlights the potential of AI-driven legal assistants in bridging 
-the justice gap, particularly in countries where legal resources are not easily 
-accessible. This is particularly relevant for systems like Colombia's, 
-where legal access disparities can be significant. 
-Research by \cite{Min_bias} explored methods for bias detection and mitigation 
-in legal AI, ensuring fairness in AI-generated legal advice.
+in the context of access to justice and AI ethics. Research by \cite{chakraborty2023revolutionizing} 
+highlights the potential of AI-driven legal assistants in bridging the justice gap, particularly 
+in countries where legal resources are not easily accessible. This is particularly relevant for 
+systems like Colombia's, where legal access disparities are significant. 
+
+The integration of AI in legal systems brings with it significant ethical challenges, particularly 
+regarding algorithmic bias. As demonstrated by \cite{Min_bias}, these systems can inadvertently 
+perpetuate and amplify existing inequalities, with marginalized communities often bearing the weight 
+of biased outcomes. In legal contexts, this bias can manifest through skewed legal advice, 
+unequal access to information, and disproportionate impacts on vulnerable populations. The 
+consequences extend beyond individual cases, potentially reinforcing systemic inequalities 
+within the justice system itself.
+
+Addressing these challenges requires a multifaceted approach that goes beyond technical solutions. 
+It involves careful consideration of how training data is collected and processed, ensuring 
+representation across different geographical, cultural, and socioeconomic contexts. The development 
+of fairness-aware algorithms and robust accountability mechanisms becomes crucial in this context. 
+These systems must be designed with human rights principles at their core, prioritizing 
+non-discrimination and equal access to justice.
+
+The work of \cite{guha2023legalbench} underscores the importance of maintaining this ethical 
+focus throughout the development and deployment of legal AI systems. Their research emphasizes 
+the need for evaluation frameworks that consider both technical performance and social implications, 
+ensuring that these systems not only provide accurate information but also maintain fairness 
+and equity in their recommendations.
 
 \subsection{Challenges and Limitations}
-Current legal AI systems face multiple interrelated challenges that hinder their 
-effectiveness across jurisdictions:
-\begin{itemize}
-    \item \textbf{Multi-jurisdictional limitations}: Existing chatbots struggle with legal queries spanning multiple jurisdictions, particularly in civil law systems like Colombia's
-    
-    \item \textbf{Context processing constraints}: Persistent inability to effectively process long-context legal arguments, requiring memory-intensive retrieval techniques
-    
-    \item \textbf{Geographical dataset gaps}: Predominant focus on English/Chinese jurisdictions creates structural disadvantages for regions with scarce structured datasets
-    
-    \item \textbf{Hallucination risks}: LLMs frequently generate non-existent laws or contradictory advice, undermining reliability in legal contexts
-    
-    \item \textbf{Implementation barriers}: Domain-specific approaches like D3LM require extensive knowledge graph reconfiguration between legal specialties
-    
-    \item \textbf{Communication gap}: Most solutions fail to bridge professional legal terminology and layperson understanding
-    
-    \item \textbf{Evaluation shortcomings}: Traditional NLP metrics (BLEU, ROUGE) inadequately capture legal advice quality and accuracy
-\end{itemize}
+The development and deployment of legal AI systems face several interrelated challenges that impact their 
+effectiveness across different jurisdictions. One significant issue is the multi-jurisdictional limitations, 
+where existing chatbots struggle to handle legal queries that span multiple legal systems, particularly in civil 
+law countries like Colombia. This is compounded by the context processing constraints, as these systems often fail to 
+effectively process long-context legal arguments, necessitating memory-intensive retrieval techniques.
+Moreover, there is a notable gap in geographical datasets, with a predominant focus on English and Chinese jurisdictions. 
+This creates structural disadvantages for regions with limited access to structured legal datasets, such as Colombia. 
+The risk of hallucinations further undermines the reliability of LLMs in legal contexts, as they can generate non-existent 
+laws or contradictory advice. This is particularly concerning given the high stakes involved in legal decision-making. Additionally, 
+there is a communication gap, with most solutions failing to bridge the divide between professional legal terminology and layperson 
+understanding. Traditional NLP metrics, such as BLEU and ROUGE, fall short in capturing the quality and accuracy of legal advice, 
+highlighting the need for more tailored evaluation methodologies.
+Addressing these challenges requires a concerted effort to optimize retrieval architectures, 
+develop jurisdiction-diverse legal corpora, and create evaluation frameworks that assess factual accuracy, 
+jurisdictional compliance, and layperson comprehension.
 
 \subsection{Future Directions and Conclusions}
 Building on these challenges, three key priorities emerge for advancing legal AI systems:

@@ -72,13 +72,14 @@ Unlike conventional legal tech solutions, our system:
 \item Communicates these strategies in accessible language that balances legal precision with comprehensibility;
 \item Focuses specifically on gender-based legal matters, where specialized knowledge of both substantive law and procedural nuances is particularly valuable.
 \end{enumerate}
-By narrowing our scope to gender-based legal issues, 
-we confront both a pressing social need and a well-defined 
-technical challenge. The domain specificity enables more 
-rigorous evaluation of the system's accuracy, relevance, 
-and ethical compliance while addressing cases where the 
-consequences of inadequate legal guidance are particularly severe. 
-This focused approach also allows for the development of specialized capabilities, 
+%By narrowing our scope to gender-based legal issues, 
+%we confront both a pressing social need and a well-defined 
+%technical challenge. The domain specificity enables more 
+%rigorous evaluation of the system's accuracy, relevance, 
+%and ethical compliance while addressing cases where the 
+%consequences of inadequate legal guidance are particularly severe. 
+%This focused approach 
+Focusing on gender-related cases only also allows for the development of specialized capabilities, 
 such as sensitivity to trauma narratives and recognition of patterns specific to 
 gender-based discrimination or violence, which might be overlooked in more generalized 
 legal assistant systems.
@@ -89,14 +90,9 @@ maintaining compliance with ethical guidelines for AI in
 legal contexts and accommodating the varied 
 linguistic and educational backgrounds of potential users.
 \section{Justification}
-The development of an agentic pipeline for gender-based legal 
-cases in Colombia is justified by converging social, technological, 
-and institutional imperatives.
 
 From a social perspective, gender-based violence remains a 
-critical issue. In 2024, the Instituto Nacional de Salud (INS) 
-reported 66,621 cases of gender-based violence, with 75.6\% of 
-victims being women, amounting to 50,374 cases~\cite{ins2024}. 
+critical issue. In 2024, the Instituto Nacional de Salud (INS) reported 66,621 cases of gender-based violence, with 75.6\% of victims being women, amounting to 50,374 cases~\cite{ins2024}. 
 This highlights the urgent need for accessible legal assistance, 
 especially in rural and low-income communities where access to 
 legal professionals is limited.
@@ -133,15 +129,19 @@ open research questions:
 \item What evaluation frameworks most effectively measure the impact of AI legal assistance on access to justice outcomes?
 \end{itemize}
 
-Our focus on gender-based cases provides a methodologically sound 
-framework for addressing these questions. Such cases typically 
-involve well-defined legal domains (family law, labor law, criminal 
-law related to gender violence) with established procedural 
-pathways, allowing for rigorous evaluation of the system’s 
-accuracy and effectiveness. Additionally, gender-based cases 
+%Our focus on gender-based cases provides a methodologically sound 
+%framework for addressing these questions. Such cases typically 
+%involve well-defined legal domains (family law, labor law, criminal 
+%law related to gender violence) with established procedural 
+%pathways, allowing for rigorous evaluation of the system’s 
+%accuracy and effectiveness. 
+Our focus on gender-based issues provides a framework for addressing these questions. The cases in question involve well-defined legal domains which allow for evaluation of the system's accuracy and effectiveness. 
+Additionally, gender-based cases 
 often involve complex intersections of factual circumstances 
-and legal principles, providing a robust test bed for evaluating 
-the system’s reasoning capabilities.
+and legal principles, providing a 
+%test bed 
+challenging scenario for evaluating 
+the system’s capabilities.
 
 Ethically, our approach emphasizes responsible AI development by:
 
@@ -150,40 +150,51 @@ Ethically, our approach emphasizes responsible AI development by:
 \item Implementing clear disclosure of the system’s limitations and its role as a complement to, not a replacement for, licensed legal counsel;
 \end{enumerate}
 
-By focusing specifically on gender-based legal cases, this research 
-addresses a pressing social need while advancing the technical state 
-of the art in conversational legal AI. Success in this domain would 
-not only provide immediate benefits to a vulnerable population but also 
-establish a methodological framework applicable to other areas of legal 
-assistance, contributing to broader efforts to democratize access to justice.
+%By focusing specifically on gender-based legal cases, this research 
+%addresses a pressing social need while advancing the technical state 
+%of the art in conversational legal AI. Success in this domain would 
+%not only provide immediate benefits to a vulnerable population but also 
+%establish a methodological framework applicable to other areas of legal 
+%assistance, contributing to broader efforts to democratize access to justice.
+
+Even though this work focuses on gender-related legal cases, the same methodology could be applied to other areas in law. This would help provide support the current justice system to provide a more broad access to justice.
 \section{Objectives}
 
 \subsection{General Objective}
-Develop an agentic pipeline using Large Language Models (LLMs) to facilitate access to legal guidance for gender-based cases in Colombia through conversational information extraction, retrieval-augmented legal analysis, and accessible communication of strategies.
+Develop an agentic pipeline using Large Language Models to provide accessible legal guidance for gender-based cases in Colombia.
 
 \subsection{Specific Objectives}
 \begin{enumerate}
     \item Design and implement a conversational agent for extracting comprehensive legal case information through natural dialogue, optimized for gender-based legal matters in the Colombian context.
     
-    \item Develop a structured knowledge base of Colombian legal documents, precedents, and procedures relevant to gender-based cases, with document embeddings created in collaboration with legal experts specializing in gender justice.
+    \item Create a structured knowledge base of Colombian legal documents with document embeddings developed in collaboration with legal experts specializing in gender justice.
     
-    \item Implement a Retrieval-Augmented Generation (RAG) system that leverages the extracted case information to identify applicable legal frameworks and formulate viable legal strategies based on authoritative sources.
+    \item Implement a Retrieval-Augmented Generation (RAG) system that identifies applicable legal frameworks and formulates viable legal strategies based on given sources.
     
-    \item Create a communication agent capable of translating complex legal strategies into accessible language that balances legal precision with comprehensibility for users with varying levels of legal literacy.
+    \item Develop a communication component that tries to translate complex legal strategies into accessible language for users with varying levels of legal literacy.
     
-    \item Evaluate the system through a multi-faceted approach:
-    \begin{itemize}
-        \item Quantitative assessment of the information extraction agent's accuracy, completeness, and efficiency in capturing relevant case details.
-        \item Precision and recall metrics for the RAG component's retrieval of relevant legal sources and generation of appropriate legal strategies.
-        \item User experience surveys to measure the accessibility, clarity, and actionability of the communicated legal guidance.
-        \item Expert evaluation by legal professionals specializing in gender-based cases to assess the substantive quality of the generated legal strategies.
-    \end{itemize}
+    \item Evaluate system performance using quantitative metrics (Bert-Score for case summaries against ground truth) and qualitative assessment by legal experts, including relevance of extracted documents.
 \end{enumerate}
 
+\section{Scope}
+\begin{itemize}
+    \item Quantitative assessment of the information extraction agent's accuracy, completeness, and efficiency in capturing relevant case details.
+    \item Precision and recall metrics for the RAG component's retrieval of relevant legal sources and generation of appropriate legal strategies.
+    \item User experience surveys to measure the accessibility, clarity, and actionability of the communicated legal guidance.
+    \item Expert evaluation by legal professionals specializing in gender-based cases to assess the substantive quality of the generated legal strategies.
+\end{itemize}
+
 \section{Products and Publications}
-paper 
-code
-chatbot
-weights
-presentation
+The products developed within the scope of this research are:
+
+1. A research paper titled ``A Scalable Framework for Legal Text Understanding in Regulatory and Financial Contexts'' has been accepted at the Joint Workshop of FinNLP, FNP, and LLMFinLegal 2025 in Abu Dhabi~\cite{martinez-etal-2025-scalable}. 
+The paper presents our findings on using RAG architecture for legal information extraction and the effectiveness of LLM-curated data.
+
+2. The complete implementation of the legal assistance chatbot is available on GitHub at 
+\url{https://github.com/smartinez1/thesis_code}. This includes the conversational agent, RAG implementation, 
+and the evaluation framework. The system can be accessed through a web interface at \url{https://legal-assistant-frontend-411325515644.us-central1.run.app/ }.
+
+3. A knowledge base of Colombian legal documents related to gender-based cases has been compiled and processed for RAG applications.
+
+All resources are publicly available in order to facilitate further research in legal assistance systems.
 \endinput
