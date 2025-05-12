@@ -106,6 +106,13 @@ than the query's embedding for retrieval. This approach bridges the semantic gap
 and documents, improving retrieval performance especially for complex or hypothetical queries. In legal 
 applications, HyDE can help identify relevant precedents or regulations that may not share obvious lexical 
 similarities with a user's query\cite{gao2022}.
+A diagram of the functionality can be found here ~\ref{fig:hyde}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/HyDE.png}
+    \caption{Hyde Flow \cite{gao2022precisezeroshotdenseretrieval}}
+    \label{fig:hyde}
+\end{figure}
 \subsection{Prompt Engineering}
 Prompt engineering encompasses techniques for formulating inputs to LLMs to 
 elicit desired outputs. Effective prompts can significantly enhance model 
@@ -149,7 +156,8 @@ quantification, which helps identify when a model might be generating unreliable
 content. Addressing bias requires careful dataset curation, targeted fine-tuning, 
 and ongoing monitoring of model outputs. In legal applications, these considerations 
 are critical for ensuring that AI-generated guidance does not propagate systemic 
-inequities or provide misleading information.
+inequities or provide misleading information. 
+
 
 \section{State of the Art}
 In Table \ref{tab:taxonomy}, an easy-to-read taxonomy of the State of the art can be found.
@@ -359,7 +367,7 @@ of fairness-aware algorithms and robust accountability mechanisms becomes crucia
 These systems must be designed with human rights principles at their core, prioritizing 
 non-discrimination and equal access to justice.
 
-The work of \cite{guha2023legalbench} underscores the importance of maintaining this ethical 
+The work of \cite{guha2023legalbench} shows the importance of maintaining this ethical 
 focus throughout the development and deployment of legal AI systems. Their research emphasizes 
 the need for evaluation frameworks that consider both technical performance and social implications, 
 ensuring that these systems not only provide accurate information but also maintain fairness 
