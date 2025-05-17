@@ -1,102 +1,5 @@
 \chapter{Chatbot}
-\section{Dataset Construction}
-\label{sec:dataset}
-
-Our dataset development followed an iterative human-AI collaboration process comprising four key phases, 
-as illustrated in Figure~\ref{fig:legal_data}.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/Legal_dataset.png}
-    \caption{Legal Dataset Creation}
-    \label{fig:legal_data}
-\end{figure}
-
-These phases are Synthetic Case Generation, Expert-Guided Refinement, Conversation simulation and Legal Strategy Development.
-
-\subsection{Base Case Preparation}
-The initial phase focused on establishing a foundation of real cases while ensuring privacy and ethical considerations:
-\begin{itemize}
-    \item Initialized with 23 anonymized gender-based case summaries from the Consultorio Jurídico
-    \item Categorized cases into primary themes including:
-    \begin{itemize}
-        \item Violencia Basada en Género
-        \item Derechos Sexuales y Reproductivo
-        \item Violencia Económica
-        \item Violencia Sexual
-        \item Violencia en el Ámbito Familiar
-        \item Violencia en el Ámbito Laboral
-        \item Violencia Institucional
-        \item Interseccionalidad
-        \item Violencia Pública
-        \item Violencia Familiar
-    \end{itemize}
-\end{itemize}
-
-\subsection{Synthetic Case Generation}
-For each base case, we employed GPT-4 with a prompt that included the case category, legal context, 
-and example templates from similar cases (see Appendix~\ref{app:prompts}, Section~\ref{sec:content-gen-prompts}, 
-Subsection~\ref{subsec:case-gen-prompt}). To ensure the generated cases maintained a balance between 
-consistency and variation, we set the temperature parameter to 0.3, allowing for controlled creativity 
-while preserving legal accuracy. This approach enabled us to create a set of synthetic cases that maintained 
-the most characteristics of real legal scenarios while providing sufficient variation for evaluation.
-
-\subsection{Expert-Guided Refinement}
-A team of 5 law students and 6 attorneys reviewed the synthetic cases. The review process included case completeness verification, 
-development of question-answer pairs, and structural edits for procedural accuracy. Through this process, legal experts identified and 
-added relevant case details that might have been overlooked by the LLM during the generation.
-
-\subsection{Conversation Simulation}
-The conversation simulation process transformed the synthetic cases into legal consultations. For each case, 
-we used a structured prompt template that included the case facts, recommended questions, and expected answers
-(see Appendix~\ref{app:prompts}, Section~\ref{sec:content-gen-prompts}, 
-Subsection~\ref{subsec:legal-consult-prompt}). 
-The process can be represented as:
-
-\begin{equation}
-    C_{final} = \text{LLM}(P_2(\text{LLM}(P_1(C_{base})))
-\end{equation}
-
-where:
-\begin{itemize}
-    \item $C_{base}$ represents the synthetic case with its facts, questions, and expected answers
-    \item $P_1$ is the initial prompt template that structures the conversation
-    \item $P_2$ is the refined prompt that incorporates expert feedback
-\end{itemize}
-
-The LLM was configured to simulate a legal expert conducting an initial consultation, with the following constraints:
-\begin{itemize}
-    \item The lawyer starts with no prior knowledge of the case
-    \item Questions must be asked to gather all necessary information
-    \item The conversation must maintain a professional yet empathetic tone
-    \item Legal details must be explained in accessible terms
-\end{itemize}
-
-This process generated a dataset of legal consultations that captured the natural flow of information gathering while aiming to maintain legal accuracy.
-
-\subsection{Legal Strategy Development}
-The evaluation process used the chatbot's output to generate legal cases. For each conversation, the system produced a legal case 
-enriched with relevant legislation through RAG. Legal experts then created their own case summaries based on the same conversations. 
-We used BERTScore to measure the similarity between the chatbot-generated cases and the expert-written summaries, 
-providing a quantitative measure of the system's ability to produce legally accurate outputs.
-
-\subsection{Final Dataset Composition}
-The dataset development process was sequential, with each phase building upon the previous one. This resulted in 72 complete cases, each containing:
-\begin{itemize}
-    \item A synthetic case with legal context
-    \item A simulated legal consultation
-    \item A chatbot-generated legal case
-    \item An expert-written case summary
-\end{itemize}
-
-The pipeline's sequential nature ensured consistency across all cases while allowing for iterative refinement at each stage. 
-The synthetic case generation provided a controlled starting point, while the expert-guided refinement added legal accuracy. 
-The conversation simulation created realistic interactions, and the final legal strategy development enabled direct comparison 
-between the chatbot's output and expert analysis. This structure allows for both qualitative assessment of the chatbot's performance 
-and quantitative evaluation through BERTScore metrics.
-
-\section{Agentic Pipeline Development}
-\subsection{Legal Consultation Process and Development Challenges}
+\section{Legal Consultation Process and Development Challenges}
 Legal consultation for gender-based cases involves a complex interplay of factual assessment, 
 legal analysis, and interpersonal support. To understand the challenges our agentic pipeline 
 aims to address, it is essential to examine the current process of legal consultation in the 
@@ -141,7 +44,7 @@ direct use of these authentic case records for AI development purposes.
 This data limitation creates a methodological challenge for our research. Without access to 
 real consultation transcripts or case files, we must develop alternative approaches to creating 
 representative datasets for training and evaluating our agentic pipeline. This necessitates 
-collaboration with legal experts to generate synthetic cases that accurately reflect the patterns, 
+collaboration with legal experts to generate synthetic cases that reflect the patterns, 
 complexities, and legal issues commonly encountered in gender-based consultations, while ensuring 
 no actual client information is compromised.
 Additionally, the consultation process varies significantly based on the specific legal issues 
@@ -158,20 +61,132 @@ This iterative process must be accommodated in any agentic system, allowing for 
 information gathering and strategy refinement as case understanding evolves.
 Finally, the legal consultation process culminates in strategy formation—identifying viable 
 legal pathways, explaining procedural requirements, outlining potential challenges, and setting 
-realistic expectations about timelines and outcomes. This strategic guidance must balance 
-technical accuracy with practical feasibility, considering not just what is legally possible 
-but what is realistically achievable given the client's resources, priorities, and circumstances.
-Understanding these multifaceted aspects of legal consultation is essential for developing an 
-effective agentic pipeline. Our system must not only extract relevant information and provide 
-accurate legal guidance but must do so in a manner that acknowledges the emotional, ethical, 
+realistic expectations about timelines and outcomes. 
+
+This guidance must consider not just what is legally possible 
+but what is realistically achievable given the client's resources, priorities, and circumstances. Our system must not only extract relevant information and provide legal guidance but must do so in a manner that acknowledges the emotional 
 and practical dimensions of gender-based legal challenges in the Colombian context.
 
+\section{Dataset Construction}
+\label{sec:dataset}
+
+Our dataset development followed an iterative human-AI collaboration process comprising four key phases, 
+as illustrated in Figure~\ref{fig:legal_data}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/Legal_dataset.png}
+    \caption{Legal Dataset Creation}
+    \label{fig:legal_data}
+\end{figure}
+
+These phases are Synthetic Case Generation, Expert-Guided Refinement, Conversation simulation and Legal Strategy Development.
+
+\subsection{Base Case Preparation}
+The initial phase focused on establishing a foundation of real cases while ensuring privacy of the parties involved:
+\begin{itemize}
+    \item Initialized with 23 anonymized gender-based case summaries from the Consultorio Jurídico
+    \item Categorized cases into primary themes including:
+    \begin{itemize}
+        \item Violencia Basada en Género
+        \item Derechos Sexuales y Reproductivo
+        \item Violencia Económica
+        \item Violencia Sexual
+        \item Violencia en el Ámbito Familiar
+        \item Violencia en el Ámbito Laboral
+        \item Violencia Institucional
+        \item Interseccionalidad
+        \item Violencia Pública
+        \item Violencia Familiar
+    \end{itemize}
+\end{itemize}
+
+\subsection{Synthetic Case Generation}
+For each base case, we employed GPT-4 with a prompt that included the case category, legal context, 
+and example templates from similar cases (see Appendix~\ref{app:prompts}, Section~\ref{sec:content-gen-prompts}, 
+Subsection~\ref{subsec:case-gen-prompt}). 
+In order to balance consistency and variation within the generated cases, we set the temperature parameter to 0.3. This value was determined empirically, as it maintained variation in cases without making up unrealistic details. This approach enabled us to create a set of synthetic cases that maintained the most characteristics of real legal scenarios while providing sufficient variation for evaluation.
+
+\subsection{Expert-Guided Refinement}
+A team of 5 law students and 6 attorneys reviewed the synthetic cases. The review process included case completeness verification, 
+development of question-answer pairs, and structural edits. Through this process, legal experts identified and 
+added relevant case details that might have been overlooked by the LLM during the generation.
+
+\subsection{Conversation Simulation}
+The conversation simulation process transformed the synthetic cases into legal consultations. For each case, 
+we used a prompt template that included the case facts, recommended questions, and expected answers
+(see Appendix~\ref{app:prompts}, Section~\ref{sec:content-gen-prompts}, 
+Subsection~\ref{subsec:legal-consult-prompt}). 
+The process can be represented as:
+
+\begin{equation}
+    C_{final} = \text{LLM}(P_2(\text{LLM}(P_1(C_{base})))
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $C_{base}$ represents the synthetic case with its facts, questions, and expected answers
+    \item $P_1$ is the initial prompt template that structures the conversation
+    \item $P_2$ is the refined prompt that incorporates expert feedback
+\end{itemize}
+
+The LLM was configured to simulate a legal expert conducting an initial consultation, with the following constraints:
+\begin{itemize}
+    \item The lawyer starts with no prior knowledge of the case
+    \item Questions must be asked to gather all necessary information
+    \item The conversation must maintain a professional yet empathetic tone
+    \item Legal details must be explained in accessible terms
+\end{itemize}
+
+\subsection{Legal Strategy Development}
+The evaluation process used the Chatbot's output to generate legal cases. For each conversation, the system produced a legal case 
+enriched with relevant legislation through RAG. Legal experts then created their own case summaries based on the same conversations. 
+We used BERTScore to measure the similarity between the chatbot-generated cases and the expert-written summaries, 
+providing a quantitative measure of the system's ability to produce outputs that are semantically similar to what a legal expert would write.
+
+\subsection{Final Dataset Composition}
+The dataset development process was sequential, with each phase building upon the previous one. This resulted in 62 complete cases, each containing:
+\begin{itemize}
+    \item A synthetic case (Figure~\ref{fig:Artificial_case_summary})
+    \item A simulated legal conversation (Figure~\ref{fig:corrected_conversation})
+    \item Chatbot-generated legal strategy/summary
+    \item An expert-written legal strategy/summary (Figure~\ref{fig:output_summary})
+\end{itemize}
+
+The pipeline's sequential nature provided consistency across all cases while allowing for iterative refinement at each stage. 
+The synthetic case generation provided a controlled starting point, while the expert-guided refinement added legal context. 
+The conversation simulation created simulated interactions, and the final legal strategy development enabled direct comparison 
+between the chatbot's output and expert analysis. This structure allows for both qualitative assessment of the chatbot's performance 
+and quantitative evaluation through BERTScore metrics.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/Artificial_case_summary.png}
+    \caption{Example of Artifical Case}
+    \label{fig:Artificial_case_summary}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/corrected_conversation.png}
+    \caption{Corrected conversation}
+    \label{fig:corrected_conversation}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/output_summary.png}
+    \caption{Example of a case summary and legal strategy}
+    \label{fig:output_summary}
+\end{figure}
+
+\section{Agentic Pipeline Development}
 \subsection{System Architecture}
 \label{sec:architecture}
 
-Our agentic pipeline employs a three-stage architecture optimized for legal case processing, 
+Our agentic pipeline employs a three-stage architecture for legal case processing, 
 as shown in Figure~\ref{fig:chatbot_architecture}. 
-Each component operates sequentially with validation checks between stages.
+Each component operates sequentially with checks between stages.
 
 \begin{figure}[htbp]
     \centering
@@ -193,28 +208,26 @@ of the cases and is explored further later.
 After each exchange, the module checks whether enough information has been collected to proceed 
 (using the Completion Checker Prompt in Appendix~\ref{app:prompts}, Section~\ref{sec:legal-interview-prompts}, 
 Subsection~\ref{subsec:completion-checker-prompt}), either by reaching a predefined threshold or 
-by explicit signals from the user or assistant. This process ensures that the case summary is complete and ready for the next stage of legal analysis.
+by signals from the user or assistant.
 \subsubsection{Sensitive Content Handling}
 To ensure that conversations could address sensitive topics without being interrupted by content safety filters, 
 we implemented a preprocessing step for user input. This was necessary because OpenAI's content moderation system 
 can block or flag messages containing explicit or potentially triggering language, which is common in legal cases 
 involving violence or abuse. Through some iterations with legal experts, we identified recurring patterns and terms 
 that tended to trigger these filters. The function developed for this purpose uses both a dictionary of direct replacements 
-and a set of regular expressions to systematically sanitize a wide range of sensitive content, including sexual, economic, 
-physical, and psychological abuse, as well as evidence and derogatory language. The approach also accounts for different word 
-forms and tenses, ensuring that the original meaning is preserved while reducing the likelihood of content moderation 
-interruptions. This preprocessing allows the conversation to remain fluid and focused on the legal issues, 
+and a set of regular expressions to sanitize sensitive content, including sexual, economic, 
+physical, and psychological abuse. This preprocessing allows the conversation to remain fluid and focused on the legal issues, 
 even when discussing difficult subjects.
 
 \subsection{Legal Case Generation}
 The Legal Case Generation module takes the information collected during the interview and organizes it into a structured legal case summary. 
 This process involves filtering the conversation data to extract key details, such as the parties involved, the classification of the case, 
 a timeline of events, a list of evidence, and the client's main concerns or requests. The module ensures that all relevant facts are included 
-and that the information is presented in a format suitable for legal analysis. This structured summary serves as the foundation for retrieving 
+and that the information is presented in a format suitable for legal analysis. This structured summary serves as the input for retrieving 
 applicable legal documents and generating tailored legal guidance in the subsequent stages.
 
 \subsection{Legal Strategy Generation}
-Once the case summary is complete, the system uses a Retrieval-Augmented Generation (RAG) approach to provide tailored legal guidance. 
+Once the case summary is complete, the system uses a Retrieval-Augmented Generation (RAG) approach to provide legal guidance. 
 First, it generates a hypothetical legal document using the HyDE technique 
 (see Appendix~\ref{app:prompts}, Section~\ref{sec:legal-interview-prompts}, Subsection~\ref{subsec:hyde-prompt}), 
 based on the details of the user's case. The system then searches a 
@@ -226,13 +239,12 @@ Each document was split based on legal hierarchical markers (such as LEY, CAPÍT
 jurisdiction, document name, and specific legal references. This preprocessing enables granular retrieval and contextual matching of legal 
 provisions to user cases.
 
-During the retrieval process, the system filters and prioritizes results according to the user's department 
+During the retrieval process, the system filters results according to the user's department 
 (using the Departamento Extraction Prompt in Appendix~\ref{app:prompts}, Section~\ref{sec:legal-interview-prompts}, 
-Subsection~\ref{subsec:departamento-prompt}), ensuring that both national and local laws are considered. 
+Subsection~\ref{subsec:departamento-prompt}), int his way, both national and local laws are considered. 
 The retrieved legal texts are then incorporated into the final case summary 
 (using the RAG Summarizer Prompt in Appendix~\ref{app:prompts}, Section~\ref{sec:legal-interview-prompts}, 
-Subsection~\ref{subsec:rag-summarizer-prompt}), which references specific laws and articles relevant to 
-the user's situation.
+Subsection~\ref{subsec:rag-summarizer-prompt}).
 
 \section{Application Development}
 
@@ -254,38 +266,39 @@ running entirely on local machines which limited its shareability and accessibil
 The prototype featured a straightforward interface. 
 The Legal Interview section provided a basic chat interface where users could interact with "Aurora". \ref{fig:streamlit}
 
-When a case was completed, the prototype would display a simple success message and the final case summary. 
-Users could download conversation transcripts and legal summaries as plain text files, though the download functionality was rudimentary.
+When a case was completed, the prototype would display a simple success message and the final case summary.
 
 \subsubsection{Technical Limitations}
 
-This initial prototype faced several technical constraints:
-The application ran exclusively on local development machines, requiring users to have Python and all dependencies installed. 
-This severely limited its shareability and made it impractical for any real-world testing with legal professionals or users.
+%This initial prototype faced some technical constraints:
+%The application ran exclusively on local development machines, requiring users to have Python and all dependencies installed. 
+%This severely limited its shareability and made it impractical for any real-world testing with legal professionals or users.
+While deployment was technically possible, it would have significantly limited our customization options. Besides, 
+given that the end goal was to create a fully-featured application, developing a proper API architecture
+would ultimately provide much greater reliability and flexibility than the Streamlit-based approach.
 The interface relied on Streamlit's session state for managing conversation history, which occasionally led to state management 
 issues during longer interactions. Message format conversion between the UI and the underlying LangChain components was handled 
-through direct manipulation of data structures rather than through a more robust API layer.
+through direct manipulation of data structures.
 
 While the prototype implemented the sensitive content preprocessing to avoid content filter issues, 
-this solution was not fully tested across all possible edge cases. Document rendering was functional but basic, 
+this solution was not tested. Document rendering was functional but basic, 
 with limited formatting options for the legal texts.
 
 \subsubsection{Learning from the Prototype}
 
-Despite its limitations, the initial Streamlit prototype was valuable in revealing several insights that would inform later development:
-The need for a cloud-based deployment that wouldn't require users to run code locally became evident immediately. The tab-based interface 
-proved intuitive, but users needed clearer guidance about the conversation flow and system capabilities.
+Despite its limitations, the initial Streamlit prototype was valuable in revealing insights that would inform later development:
+The need for a cloud-based deployment that wouldn't require users to run code locally became evident immediately.
 
 The prototype also demonstrated that while Streamlit was excellent for rapid prototyping, a more robust framework would be needed for a user-ready 
 application with better performance and customization options.
 
-This early implementation represented an important stepping stone in our development process, allowing us to test core functionality and gather 
+This early implementation represented an important step in our development process, allowing us to test functionalities and gather 
 feedback that would shape the versions that followed.
 
 \subsection{User Web Application Development}
 \label{subsec:web-application}
 
-Following the insights gained from our initial Streamlit prototype, we developed a web application architecture that addressed the limitations of the prototype and enabled broader accessibility and deployment.
+Following the insights gained from our initial Streamlit prototype, we developed a web application architecture that addressed the limitations of the prototype and enabled broader customization and easier deployment.
 
 %\begin{figure}[htbp]
 %    \centering
@@ -297,26 +310,25 @@ Following the insights gained from our initial Streamlit prototype, we developed
 \subsubsection{FastAPI Backend Service}
 
 The backend of our production system was implemented using FastAPI, a web framework for building APIs with Python. 
-This choice offered several advantages over the Streamlit prototype:
-The backend service provided a comprehensive set of REST endpoints for conversation management, including initializing conversations, sending and receiving messages, 
-retrieving case summaries, and accessing RAG documents. This API-centric approach decoupled the frontend from the underlying AI logic, allowing for multiple client 
+This choice offered many advantages over the Streamlit prototype:
+The backend service provided a set of REST endpoints for conversation management, including initializing conversations, sending and receiving messages, 
+retrieving case summaries, and accessing RAG documents. This API-centric approach decoupled the Frontend from the underlying AI logic, allowing for multiple client 
 applications to connect to the same backend service.
 
 To solve the state management issues encountered in the prototype, we implemented MongoDB integration for conversation persistence. This allowed the system to store 
 conversation states, legal contexts, and retrieved documents, enabling long-term storage of user interactions.
 
-The backend handled the complete conversation lifecycle, processing user messages through the legal interview model, 
+The backend handled the complete conversation life-cycle, processing user messages through the legal interview model, 
 detecting when cases were completed, triggering the RAG system to retrieve relevant legal documents, and managing the transition 
-between conversation and legal summary generation. This modular approach improved maintainability and allowed for independent scaling of different system components.
+between conversation and legal summary generation.
 
 We refined the Colombian location detection capabilities to provide more region-specific legal information, implementing detection of Colombian departments in user messages. 
-The system also included error handling and extensive logging to diagnose and troubleshoot issues in environments.
+The system also included error handling and logging to diagnose and troubleshoot issues.
 
 \subsubsection{Web Client Implementation}
 
 To make the application accessible to a wide range of users, we developed a lightweight frontend interface:
-The frontend was implemented as a static web application using JavaScript and HTML, delivered through a minimal Node.js server. This approach resulted in a responsive 
-design that works across different devices and screen sizes, making the legal assistant accessible from desktop computers, tablets, or mobile phones.
+The frontend was implemented as a static web application using JavaScript and HTML, delivered through a minimal Node.js server. This approach resulted in a design that works across different devices and screen sizes, making the legal assistant accessible from desktop computers, tablets, or mobile phones.
 
 The interface was designed for simplicity and usability, focusing on the conversational interaction with the AI assistant. 
 When legal information was retrieved, it was presented along the summary. \ref{fig:Frontend}
@@ -331,15 +343,52 @@ the user interface and the backend processing logic.
     \label{fig:Frontend}
 \end{figure}
 
-%%TODO keep checking
 \subsubsection{Containerization and Cloud Deployment}
 
 To facilitate deployment and ensure consistency across environments, the entire application was containerized using Docker:
 
-We implemented a multi-stage Docker build process that created optimized containers for both the backend and frontend components. This approach reduced image sizes and improved startup times by including only the necessary dependencies and resources in the final containers.
+The containerization process included packaging all required components: the FAISS index for document retrieval, preprocessed legal documents, 
+and model code, so that the application had access to all necessary resources regardless of the deployment environment.
+For deployment, we developed an automated script that orchestrated the deployment of both backend and frontend components to Google Cloud Run. 
 
-The containerization process included packaging all required components: the FAISS index for document retrieval, preprocessed legal documents, and model code, ensuring that the application had access to all necessary resources regardless of the deployment environment.
+The cloud deployment strategy enabled global accessibility while maintaining reasonable costs, as Cloud Run's serverless architecture only incurred charges when the 
+application was actively being used.
 
-For deployment, we developed an automated script that orchestrated the deployment of both backend and frontend components to Google Cloud Run. This script handled environment configuration, backend deployment, frontend configuration, and provided a clear summary of deployed resources and access instructions.
+\subsection{Initial User Testing}
+\label{subsec:user-testing}
 
-The cloud deployment strategy enabled global accessibility while maintaining reasonable costs, as Cloud Run's serverless architecture only incurred charges when the application was actively being used. This marked a significant improvement over the local-only limitations of the Streamlit prototype.
+To assess the effectiveness of our web application, we conducted limited user testing with a small group of participants including law students, legal professionals, 
+and individuals without legal backgrounds. This testing was designed to find the most common issues and improve the system in a very empirical way.
+
+The testing process involved participants engaging with the assistant covering different types of gender-based legal cases as they wished. After each interaction, 
+these participants provided feedback on the ease of use, clarity of information, and perceived helpfulness of the legal guidance provided.
+
+This feedback was valuable in understanding both the strengths and limitations of our approach. The positive reception of the conversational interface validated our design 
+decisions, while the critiques revealed issues requiring attention.
+
+A significant problem identified during testing was that the RAG system was not behaving optimally. It frequently recommended legal documents that were not applicable to the 
+user's specific situation, particularly when regional or departmental legislation was involved. This discovery led us to develop the departamento extraction feature, 
+which enabled the system to specifically ask users about their location in Colombia and then filter out non-applicable legislation. This targeted approach  
+improved the relevance of the document retrieval process, as users wouldn't receive guidance that was not applicable to them given their geographic location.
+
+Additionally, the testing highlighted the importance of the assistant's tone and communication style. Lawyers from the Consultorio Jurídico emphasized that legal assistants 
+in gender-based cases must be especially empathetic and supportive, as clients are often in vulnerable situations. Based on this input, we significantly refined the system's 
+prompts to ensure a friendly, supportive, and non-judgmental approach while still maintaining professional boundaries and accuracy.
+
+\subsection{Iterative Prompt Engineering}
+\label{subsec:prompt-engineering}
+
+Throughout the development process, an important aspect of our methodology was the iterative refinement of system prompts in close collaboration with legal professionals. 
+The prompts detailed in Appendix~\ref{app:prompts} were not static instructions created at the outset of the project, but rather evolved significantly through  
+feedback cycles with practicing lawyers and legal scholars. 
+
+The information gathering process itself was structured based on direct input from lawyers at the Consultorio Jurídico. They provided detailed guidance on the specific types of 
+information needed to properly assess and address gender-based legal cases in Colombia. This included the appropriate questions, critical data points to collect 
+(such as relationship to the aggressor, types of violence experienced, and available evidence), and how to approach sensitive topics in a trauma-informed manner.
+
+This collaborative prompt engineering process involved review sessions where legal experts would interact with the tool, check its legal summaries, and produced document 
+retrievals. Their feedback guided substantial revisions to prompt wording, structure, and content focus.
+
+%The iterative prompt engineering process highlights the importance of interdisciplinary collaboration in developing AI systems for specialized domains. 
+%While large language models provide powerful capabilities, harnessing these capabilities for domain-specific applications requires ongoing dialogue between 
+%technical developers and subject matter experts. The final prompts represent a synthesis of computational and legal knowledge.
